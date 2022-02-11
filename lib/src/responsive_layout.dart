@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:super_responsive/src/super_responsive.dart';
+import 'package:super_responsive/src/utils.dart';
 
 enum FlexLayoutType {
   column,
@@ -9,6 +11,7 @@ abstract class BaseFlexLayout {
   Widget layout({
     required List<Widget> widgets,
     required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
   });
 }
 
@@ -60,6 +63,7 @@ class MultiFlexLayout extends BaseFlexLayout {
   Widget layout({
     required List<Widget> widgets,
     required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
   }) {
     switch (_type) {
       case FlexLayoutType.column:
@@ -71,7 +75,11 @@ class MultiFlexLayout extends BaseFlexLayout {
           verticalDirection: verticalDirection,
           textBaseline: textBaseline,
           textDirection: textDirection,
-          children: _getChildren(widgets: widgets, widgetsFlex: widgetsFlex),
+          children: _getChildren(
+            widgets: widgets,
+            widgetsFlex: widgetsFlex,
+            widgetsMaxSize: widgetsMaxSize,
+          ),
         );
       case FlexLayoutType.row:
         return Row(
@@ -82,21 +90,30 @@ class MultiFlexLayout extends BaseFlexLayout {
           verticalDirection: verticalDirection,
           textBaseline: textBaseline,
           textDirection: textDirection,
-          children: _getChildren(widgets: widgets, widgetsFlex: widgetsFlex),
+          children: _getChildren(
+            widgets: widgets,
+            widgetsFlex: widgetsFlex,
+            widgetsMaxSize: widgetsMaxSize,
+          ),
         );
     }
   }
 
   List<Widget> _getChildren({
-    required final List<Widget> widgets,
-    final List<int?>? widgetsFlex,
+    required List<Widget> widgets,
+    required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
   }) {
     if (childrenFlex.isNotEmpty) assert(childrenFlex.length == children.length);
 
     return [
       for (var i = 0; i < children.length; i++)
         if (childrenFlex.isNotEmpty && childrenFlex[i] == null)
-          children[i].layout(widgets: widgets, widgetsFlex: widgetsFlex)
+          children[i].layout(
+            widgets: widgets,
+            widgetsFlex: widgetsFlex,
+            widgetsMaxSize: widgetsMaxSize,
+          )
         else
           Expanded(
             flex: childrenFlex.isEmpty ? 1 : childrenFlex[i]!,
@@ -104,6 +121,7 @@ class MultiFlexLayout extends BaseFlexLayout {
               child: children[i].layout(
                 widgets: widgets,
                 widgetsFlex: widgetsFlex,
+                widgetsMaxSize: widgetsMaxSize,
               ),
             ),
           )
@@ -156,6 +174,7 @@ class FlexLayout extends BaseFlexLayout {
   Widget layout({
     required List<Widget> widgets,
     required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
   }) {
     switch (_type) {
       case FlexLayoutType.column:
@@ -167,7 +186,11 @@ class FlexLayout extends BaseFlexLayout {
           verticalDirection: verticalDirection,
           textBaseline: textBaseline,
           textDirection: textDirection,
-          children: _getChildren(widgets: widgets, widgetsFlex: widgetsFlex),
+          children: _getChildren(
+            widgets: widgets,
+            widgetsFlex: widgetsFlex,
+            widgetsMaxSize: widgetsMaxSize,
+          ),
         );
       case FlexLayoutType.row:
         return Row(
@@ -178,13 +201,20 @@ class FlexLayout extends BaseFlexLayout {
           verticalDirection: verticalDirection,
           textBaseline: textBaseline,
           textDirection: textDirection,
-          children: _getChildren(widgets: widgets, widgetsFlex: widgetsFlex),
+          children: _getChildren(
+            widgets: widgets,
+            widgetsFlex: widgetsFlex,
+            widgetsMaxSize: widgetsMaxSize,
+          ),
         );
     }
   }
 
-  List<Widget> _getChildren(
-      {required List<Widget> widgets, List<int?>? widgetsFlex}) {
+  List<Widget> _getChildren({
+    required List<Widget> widgets,
+    required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
+  }) {
     return [
       for (final child in children)
         if (widgetsFlex == null ||
@@ -194,7 +224,11 @@ class FlexLayout extends BaseFlexLayout {
           Expanded(
             flex: widgetsFlex.isEmpty ? 1 : widgetsFlex[child]!,
             child: Center(
-              child: widgets[child],
+              child: SizedBox(
+                width: widgetsMaxSize?[child]?.width,
+                height: widgetsMaxSize?[child]?.height,
+                child: widgets[child],
+              ),
             ),
           )
     ];
@@ -210,19 +244,28 @@ class SingleFlexLayout extends BaseFlexLayout {
   Widget layout({
     required List<Widget> widgets,
     required List<int?>? widgetsFlex,
+    required List<Size?>? widgetsMaxSize,
   }) {
     if (widgetsFlex != null &&
         widgetsFlex.isNotEmpty &&
         widgetsFlex.length > child) {
       return Expanded(
         flex: widgetsFlex[child]!,
-        child: Center(child: widgets[child]),
+        child: Center(
+          child: SizedBox(
+            width: widgetsMaxSize?[child]?.width,
+            height: widgetsMaxSize?[child]?.height,
+            child: widgets[child],
+          ),
+        ),
       );
     }
 
     return widgets[child];
   }
 }
+
+typedef BreakPointsBuilder = List<double> Function(BreakPoints breakPoints);
 
 class ResponsiveLayout extends StatelessWidget {
   const ResponsiveLayout({
@@ -233,56 +276,32 @@ class ResponsiveLayout extends StatelessWidget {
     this.childrenMaxSizes,
     required this.breakPoints,
     required this.layouts,
-  })  : assert(breakPoints.length == layoutCount),
-        assert(layouts.length == layoutCount),
+  })  : assert(layouts.length == layoutCount),
         super(key: key);
 
   final int layoutCount;
   final List<Widget> children;
   final List<Size?>? childrenMaxSizes;
-  final List<Size> breakPoints;
+  final BreakPointsBuilder breakPoints;
   final List<BaseFlexLayout> layouts;
   final List<List<int?>?>? childrenFlexOnBreakPoints;
 
-  int _index(Size constraints) {
-    final List<int> indexes =
-        List.generate(breakPoints.length, (index) => index);
-
-    return indexes.reduce((value, element) {
-      final Offset sDifference = (constraints - breakPoints[element]) as Offset;
-      final double difference = (sDifference.dx + sDifference.dy).abs();
-
-      final Offset valueSDifference =
-          (constraints - breakPoints[value]) as Offset;
-      final double valueDifference =
-          (valueSDifference.dx + valueSDifference.dy).abs();
-
-      if (difference < valueDifference) return element;
-
-      return value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final widgets = List<Widget>.generate(
-      children.length,
-      (i) => SizedBox(
-        height: childrenMaxSizes?[i]?.height,
-        width: childrenMaxSizes?[i]?.width,
-        child: children[i],
-      ),
-    );
+
+    final widgets = children;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final index = _index(constraints.biggest);
+        final index = indexBreakPoint(
+            constraints.maxWidth, breakPoints(context.breakPoints));
         final layout = layouts[index];
         final flex = childrenFlexOnBreakPoints?[index];
 
         return layout.layout(
           widgets: widgets,
           widgetsFlex: flex,
+          widgetsMaxSize: childrenMaxSizes,
         );
       },
     );

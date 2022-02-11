@@ -1,30 +1,6 @@
-double mapValue(
-  double value,
-  double minIn,
-  double maxIn,
-  double minOut,
-  double maxOut,
-) {
-  assert(minIn < maxIn,
-      "The minimum value of the given range must be less than its maximum value");
-  assert(minOut < maxOut,
-      "The minimum value of the given range must be less than its maximum value");
-
-  double finalValue = value;
-
-  if (value > maxIn) {
-    finalValue = maxIn;
-  } else if (value < minIn) {
-    finalValue = minIn;
+int indexBreakPoint(double width, List<double> breakPoints) {
+  for (final breakPoint in breakPoints.reversed) {
+    if (width - breakPoint < 0) return breakPoints.indexOf(breakPoint);
   }
-
-  final double result =
-      maxOut - ((maxIn - finalValue) / (maxIn - minIn)) * (maxOut - minOut);
-  return result;
+  return 0;
 }
-
-double lerp(double value, double min, double max) =>
-    mapValue(value, min, max, 0.0, 0.1);
-
-double inverseLerp(double value, double min, double max) =>
-    mapValue(value, 0.0, 1.0, min, max);

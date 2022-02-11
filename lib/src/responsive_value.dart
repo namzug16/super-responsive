@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:super_responsive/src/super_responsive.dart';
 
 class Range {
   Range(this.start, this.end);
@@ -32,39 +33,43 @@ typedef ResponsiveValue = double Function(double percentage, [Range? range]);
 typedef ResponsiveValueBuilderWidget = Widget Function(
   BuildContext context,
   BoxConstraints constraints,
+  BreakPoints breakPoints,
   ResponsiveValue superValueWidth,
   ResponsiveValue superValueHeight,
 );
 
-class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({
+class ResponsiveValueBuilder extends StatelessWidget {
+  const ResponsiveValueBuilder({
     Key? key,
-    required this.responsiveValueBuilder,
+    required this.builder,
     this.useMediaQuerySize = false,
   }) : super(key: key);
 
-  final ResponsiveValueBuilderWidget responsiveValueBuilder;
+  final ResponsiveValueBuilderWidget builder;
   final bool useMediaQuerySize;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-
         final mediaQuerySize = MediaQuery.of(context).size;
 
-        return responsiveValueBuilder(
+        return builder(
           context,
           constraints,
+          context.breakPoints,
           (double percentage, [Range? range]) => responsiveValue(
             valuePercentage: percentage,
             valueRange: range,
-            limit: useMediaQuerySize ? mediaQuerySize.width : constraints.maxWidth,
+            limit:
+                useMediaQuerySize ? mediaQuerySize.width : constraints.maxWidth,
           ),
           (double percentage, [Range? range]) => responsiveValue(
             valuePercentage: percentage,
             valueRange: range,
-            limit: useMediaQuerySize ? mediaQuerySize.width : constraints.maxHeight,
+            limit: useMediaQuerySize
+                ? mediaQuerySize.width
+                : constraints.maxHeight,
           ),
         );
       },

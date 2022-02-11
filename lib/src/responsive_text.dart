@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/responsive_value.dart';
-import 'package:super_responsive/src/utils.dart';
 
 class ResponsiveText extends StatelessWidget {
   const ResponsiveText({
     Key? key,
     required this.text,
-    required this.maxWidth,
+    required this.maxWidthWrapper,
     required this.fontSizeRange,
     this.breakPoints,
     this.style,
@@ -24,7 +24,7 @@ class ResponsiveText extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final double maxWidth;
+  final double maxWidthWrapper;
   final Range fontSizeRange;
   final List<double>? breakPoints;
   final TextStyle? style;
@@ -61,7 +61,7 @@ class ResponsiveText extends StatelessWidget {
         final fontSize = _fontSize(mapValue(
           constraints.maxWidth,
           0.0,
-          maxWidth,
+          maxWidthWrapper,
           fontSizeRange.start,
           fontSizeRange.end,
         ));
