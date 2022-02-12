@@ -63,7 +63,7 @@ class FirstSection extends StatelessWidget {
                       ),
                       onPressed: () {},
                       child: ResponsiveText(
-                        text: "super-responsive",
+                        text: "Find out more",
                         fontSizeRange: Range(14, 25),
                         style: TextStyle(color: ColorsTheme.white),
                       ),

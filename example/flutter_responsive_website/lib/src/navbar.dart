@@ -39,7 +39,7 @@ class Title extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 20),
           child: ResponsiveText(
-            text: "Responsive",
+            text: "Super Responsive",
             fontSizeRange: Range(20, 30),
             style: TextStyle(
               color: ColorsTheme.background,

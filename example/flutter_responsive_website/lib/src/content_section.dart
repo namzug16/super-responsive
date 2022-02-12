@@ -11,21 +11,30 @@ class ContentSection extends StatelessWidget {
 
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: const [
+      children: [
+        const ResponsiveGap(30, 80),
+        ResponsiveText(
+          text: "A different way to layout your widgets",
+          fontSizeRange: Range(18, 45),
+          style: TextStyle(
+            color: ColorsTheme.white
+          ),
+        ),
         gap,
-        Section(
+        gap,
+        const Section(
           text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
           isLeft: true,
         ),
         gap,
-        Section(
+        const Section(
           text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
           isLeft: false,
         ),
         gap,
-        Section(
+        const Section(
           text:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
           isLeft: true,
@@ -50,20 +59,24 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: context.breakPoints.when(
-        context: context,
-        first: (_) => 550,
-        second: (_) => 600,
-      ),
+          context: context,
+          first: (_) => 550,
+          second: (_) => context.responsiveValue(400, 750),
+          third: (_) => 400),
       width: context.currentBreakPoint,
       child: ResponsiveLayout(
         breakPoints: (bp) => [bp.first, bp.second],
         children: [
           Center(
-            child: ResponsiveText(
-              text: text,
-              fontSizeRange: Range(15, 30),
-              style: TextStyle(
-                color: ColorsTheme.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ResponsiveText(
+                text: text,
+                fontSizeRange: Range(15, 25),
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  color: ColorsTheme.white,
+                ),
               ),
             ),
           ),
@@ -76,7 +89,7 @@ class Section extends StatelessWidget {
           [],
         ],
         layouts: [
-          FlexLayout.row(children: [0, 1]),
+          FlexLayout.row(children: isLeft ? [0, 1] : [1, 0]),
           FlexLayout.column(children: [1, 0]),
         ],
       ),

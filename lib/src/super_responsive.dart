@@ -69,19 +69,18 @@ class BreakPoints {
     BreakPointValue? fourth,
     BreakPointValue? fifth,
     BreakPointValue? sixth,
-  }){
-
+  }) {
     final currentBP = currentBreakPoint(context);
-    if(currentBP == this.first) return first(this.first);
-    if(currentBP == this.second) return second(this.second);
-    if(third == null) return second(this.second);
-    if(currentBP == this.third) return third(this.third ?? last);
-    if(fourth == null) return third(this.third ?? last);
-    if(currentBP == this.fourth) return fourth(this.fourth ?? last);
-    if(fifth == null) return fourth(this.fourth ?? last);
-    if(currentBP == this.fifth) return fifth(this.fifth ?? last);
-    if(sixth == null) return fifth(this.fifth ?? last);
-    if(currentBP == this.sixth) return sixth(this.sixth ?? last);
+    if (currentBP == this.first) return first(this.first);
+    if (currentBP == this.second) return second(this.second);
+    if (third == null) return second(this.second);
+    if (currentBP == this.third) return third(this.third ?? last);
+    if (fourth == null) return third(this.third ?? last);
+    if (currentBP == this.fourth) return fourth(this.fourth ?? last);
+    if (fifth == null) return fourth(this.fourth ?? last);
+    if (currentBP == this.fifth) return fifth(this.fifth ?? last);
+    if (sixth == null) return fifth(this.fifth ?? last);
+    if (currentBP == this.sixth) return sixth(this.sixth ?? last);
 
     return 0;
   }
@@ -116,8 +115,6 @@ class SuperResponsive extends InheritedWidget {
         min,
         max,
       );
-
-
 
   @override
   bool updateShouldNotify(SuperResponsive oldWidget) => false;
