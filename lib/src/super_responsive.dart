@@ -1,5 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/exposed_utils.dart';
+import 'package:super_responsive/src/utils.dart';
+
+typedef BreakPointValue = double Function(double breakPoint);
 
 class BreakPoints {
   final double first;
@@ -49,6 +52,40 @@ class BreakPoints {
   List<double> get extremes => _extremes;
   final List<double> _extremes = [];
 
+  double currentBreakPoint(BuildContext context) {
+    final index = indexBreakPoint(
+      MediaQuery.of(context).size.width,
+      list,
+    );
+
+    return list[index];
+  }
+
+  double when({
+    required BuildContext context,
+    required BreakPointValue first,
+    required BreakPointValue second,
+    BreakPointValue? third,
+    BreakPointValue? fourth,
+    BreakPointValue? fifth,
+    BreakPointValue? sixth,
+  }){
+
+    final currentBP = currentBreakPoint(context);
+    if(currentBP == this.first) return first(this.first);
+    if(currentBP == this.second) return second(this.second);
+    if(third == null) return second(this.second);
+    if(currentBP == this.third) return third(this.third ?? last);
+    if(fourth == null) return third(this.third ?? last);
+    if(currentBP == this.fourth) return fourth(this.fourth ?? last);
+    if(fifth == null) return fourth(this.fourth ?? last);
+    if(currentBP == this.fifth) return fifth(this.fifth ?? last);
+    if(sixth == null) return fifth(this.fifth ?? last);
+    if(currentBP == this.sixth) return sixth(this.sixth ?? last);
+
+    return 0;
+  }
+
   @override
   String toString() {
     return "BreakPoints(first: $first, second: $second, third: $third, fourth: $fourth, fifth: $fifth, sixth: $sixth, last: $last, list: $list, extremes: $extremes)";
@@ -80,6 +117,8 @@ class SuperResponsive extends InheritedWidget {
         max,
       );
 
+
+
   @override
   bool updateShouldNotify(SuperResponsive oldWidget) => false;
 }
@@ -88,6 +127,8 @@ extension ResponsiveContext on BuildContext {
   BreakPoints get breakPoints => SuperResponsive.of(this).breakPoints;
 
   double responsiveValue(double min, double max) =>
-      SuperResponsive.of(this)
-          .superValueOfExtremes(this, min, max);
+      SuperResponsive.of(this).superValueOfExtremes(this, min, max);
+
+  double get currentBreakPoint =>
+      SuperResponsive.of(this).breakPoints.currentBreakPoint(this);
 }
