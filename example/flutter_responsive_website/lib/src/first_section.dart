@@ -24,7 +24,7 @@ class FirstSection extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const ResponsiveGap(50, 100),
+                const ResponsiveGap(20, 60),
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,

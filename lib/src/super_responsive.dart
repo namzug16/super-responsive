@@ -35,8 +35,9 @@ class BreakPoints {
 
     _last = list.isNotEmpty && list.length > 1 ? list.last : 0;
 
-    _extremes..add(first)..add(last);
-
+    _extremes
+      ..add(first)
+      ..add(last);
   }
 
   List<double> get list => _breakPointsList;
@@ -48,12 +49,10 @@ class BreakPoints {
   List<double> get extremes => _extremes;
   final List<double> _extremes = [];
 
-
   @override
   String toString() {
     return "BreakPoints(first: $first, second: $second, third: $third, fourth: $fourth, fifth: $fifth, sixth: $sixth, last: $last, list: $list, extremes: $extremes)";
   }
-
 }
 
 class SuperResponsive extends InheritedWidget {
@@ -73,8 +72,13 @@ class SuperResponsive extends InheritedWidget {
   }
 
   double superValueOfExtremes(BuildContext context, double min, double max) =>
-      mapValue(MediaQuery.of(context).size.width, breakPoints.last,
-          breakPoints.first, min, max);
+      mapValue(
+        MediaQuery.of(context).size.width,
+        breakPoints.last,
+        breakPoints.first,
+        min,
+        max,
+      );
 
   @override
   bool updateShouldNotify(SuperResponsive oldWidget) => false;
@@ -84,5 +88,6 @@ extension ResponsiveContext on BuildContext {
   BreakPoints get breakPoints => SuperResponsive.of(this).breakPoints;
 
   double responsiveValue(double min, double max) =>
-      SuperResponsive.of(this).superValueOfExtremes(this, min, max);
+      SuperResponsive.of(this)
+          .superValueOfExtremes(this, min, max);
 }
