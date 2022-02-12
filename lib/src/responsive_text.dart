@@ -1,13 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/responsive_value.dart';
+import 'package:super_responsive/src/super_responsive.dart';
 
 class ResponsiveText extends StatelessWidget {
   const ResponsiveText({
     Key? key,
     required this.text,
-    required this.maxWidthWrapper,
     required this.fontSizeRange,
+    this.maxWidthWrapper,
     this.breakPoints,
     this.style,
     this.strutStyle,
@@ -24,7 +25,7 @@ class ResponsiveText extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final double maxWidthWrapper;
+  final double? maxWidthWrapper;
   final Range fontSizeRange;
   final List<double>? breakPoints;
   final TextStyle? style;
@@ -43,13 +44,12 @@ class ResponsiveText extends StatelessWidget {
   double _fontSize(double value) {
     if (breakPoints == null) return value;
 
-    return breakPoints!
-        .reduce((_value, element) {
+    return breakPoints!.reduce((_value, element) {
       _value < element ? _value : element;
       final double v1 = (value - _value).abs();
       final double v2 = (value - element).abs();
 
-      if(v2 <= v1) return element;
+      if (v2 <= v1) return element;
       return _value;
     });
   }
@@ -58,13 +58,19 @@ class ResponsiveText extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final fontSize = _fontSize(mapValue(
-          constraints.maxWidth,
-          0.0,
-          maxWidthWrapper,
-          fontSizeRange.start,
-          fontSizeRange.end,
-        ));
+        final fontSize = _fontSize(
+          maxWidthWrapper == null ?
+
+           context.responsiveValue(fontSizeRange.min, fontSizeRange.max) :
+
+          mapValue(
+            constraints.maxWidth,
+            0.0,
+            maxWidthWrapper!,
+            fontSizeRange.max,
+            fontSizeRange.min,
+          ),
+        );
 
         final _style = style?.copyWith(fontSize: fontSize) ??
             TextStyle(fontSize: fontSize);

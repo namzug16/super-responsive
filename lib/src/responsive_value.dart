@@ -2,14 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
 class Range {
-  Range(this.start, this.end);
+  Range( this.min, this.max);
 
-  final double start;
-  final double end;
+  final double max;
+  final double min;
 
   @override
   String toString() {
-    return "Range: ($start, $end)";
+    return "Range: ($min, $max)";
   }
 }
 
@@ -26,7 +26,7 @@ double responsiveValue({
   }
 
   return (limit * valuePercentage / 100)
-      .clamp(valueRange.start, valueRange.end);
+      .clamp(valueRange.max, valueRange.min);
 }
 
 typedef ResponsiveValue = double Function(double percentage, [Range? range]);

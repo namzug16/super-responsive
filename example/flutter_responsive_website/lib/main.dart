@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_responsive_website/src/first_section.dart';
 import 'package:flutter_responsive_website/src/navbar.dart';
 import 'package:flutter_responsive_website/src/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -69,15 +70,13 @@ class MyHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsTheme.background,
-      body: Column(
-        children: const [
-          Navbar(),
-          Expanded(
-            child: Center(
-              child: Text("Home"),
-            ),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          children: const [
+            Navbar(),
+            FirstSection(),
+          ],
+        ),
       ),
     );
   }
