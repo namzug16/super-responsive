@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_responsive_website/src/theme.dart';
+import 'package:go_router/go_router.dart';
 import 'package:super_responsive/super_responsive.dart';
 
 class Navbar extends StatelessWidget {
@@ -62,6 +63,7 @@ class NavbarButtons extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: const [
           NavbarButton(text: "home"),
+          NavbarButton(text: "examples"),
           NavbarButton(text: "info"),
           NavbarButton(text: "contact"),
           NavbarButton(text: "blog"),
@@ -81,7 +83,7 @@ class NavbarButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(right: context.responsiveValue(10, 20)),
       child: TextButton(
-        onPressed: () => print(text),
+        onPressed: () => context.go("/" + text),
         child: Text(
           text.toUpperCase(),
           style: TextStyle(
@@ -102,9 +104,29 @@ class NavbarIcon extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
-        onPressed: () {},
+        onPressed: () => Scaffold.of(context).openDrawer(),
         icon: const Icon(Icons.menu),
         splashRadius: 20,
+      ),
+    );
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: ColorsTheme.white,
+      child: Center(
+        child: Column(children: const [
+          NavbarButton(text: "home"),
+          NavbarButton(text: "examples"),
+          NavbarButton(text: "info"),
+          NavbarButton(text: "contact"),
+          NavbarButton(text: "blog"),
+        ]),
       ),
     );
   }

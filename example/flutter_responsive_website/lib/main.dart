@@ -15,28 +15,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _router = GoRouter(
-      routes: [
-        GoRoute(
-          path: "/",
-          pageBuilder: (_, state) => NoTransitionPage(
-            child: const HomePage(),
-            key: state.pageKey,
+        initialLocation: "/examples/layout",
+        routes: [
+          GoRoute(
+            path: "/home",
+            pageBuilder: (_, state) => NoTransitionPage(
+              child: const HomePage(),
+              key: state.pageKey,
+            ),
           ),
-        ),
-        GoRoute(
+          GoRoute(
             path: "/examples",
             pageBuilder: (_, state) => NoTransitionPage(
-                  child: const HomePage(),
-                  key: state.pageKey,
-                ),
+              child: const ExamplePage(example: "examples"),
+              key: state.pageKey,
+            ),
             routes: [
               GoRoute(
-                  path: "id",
-                  builder: (_, state) =>
-                      ExamplePage(example: state.params["id"]!))
-            ]),
-      ],
-    );
+                path: ":id",
+                pageBuilder: (_, state) => NoTransitionPage(
+                  child: ExamplePage(example: state.params["id"]!),
+                  key: state.pageKey,
+                ),
+              )
+            ],
+          ),
+        ],
+       );
 
     return SuperResponsive(
       breakPoints: BreakPoints(

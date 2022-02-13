@@ -83,7 +83,6 @@ class Section extends StatelessWidget {
           const ContentCard(),
         ],
         layoutCount: 2,
-        childrenMaxSizes: const [Size(400, 400), null],
         childrenFlexOnBreakPoints: const [
           [],
           [],
@@ -102,15 +101,20 @@ class ContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(context.responsiveValue(10, 15)),
-          color: ColorsTheme.pinkAccent,
-        ),
-        child: SizedBox.square(
-          dimension: context.responsiveValue(200, 400),
+    return Center(
+      child: SizedBox.square(
+        dimension: 400,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(context.responsiveValue(10, 15)),
+              color: ColorsTheme.pinkAccent,
+            ),
+            child: SizedBox.square(
+              dimension: context.responsiveValue(200, 400),
+            ),
+          ),
         ),
       ),
     );
