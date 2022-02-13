@@ -19,10 +19,10 @@ class Navbar extends StatelessWidget {
           NavbarButtons(),
           NavbarIcon(),
         ],
-        breakPoints: (_breakPoints) => _breakPoints.extremes,
-        layouts: [
-          FlexLayout.row(children: [0, 1]),
-          FlexLayout.row(children: [0, 2]),
+        breakPoints: (bp) => bp.extremes,
+        layouts: (child) => [
+          Row(children: [child(0), child(1)]),
+          Row(children: [child(0), child(2)]),
         ],
       ),
     );

@@ -16,9 +16,7 @@ class ContentSection extends StatelessWidget {
         ResponsiveText(
           text: "A different way to layout your widgets",
           fontSizeRange: Range(18, 45),
-          style: TextStyle(
-            color: ColorsTheme.white
-          ),
+          style: TextStyle(color: ColorsTheme.white),
         ),
         gap,
         gap,
@@ -67,15 +65,17 @@ class Section extends StatelessWidget {
       child: ResponsiveLayout(
         breakPoints: (bp) => [bp.first, bp.second],
         children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ResponsiveText(
-                text: text,
-                fontSizeRange: Range(15, 25),
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  color: ColorsTheme.white,
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ResponsiveText(
+                  text: text,
+                  fontSizeRange: Range(15, 25),
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    color: ColorsTheme.white,
+                  ),
                 ),
               ),
             ),
@@ -83,13 +83,9 @@ class Section extends StatelessWidget {
           const ContentCard(),
         ],
         layoutCount: 2,
-        childrenFlexOnBreakPoints: const [
-          [],
-          [],
-        ],
-        layouts: [
-          FlexLayout.row(children: isLeft ? [0, 1] : [1, 0]),
-          FlexLayout.column(children: [1, 0]),
+        layouts: (child) => [
+          Row(children: isLeft ? [child(0), child(1)] : [child(1), child(0)]),
+          Column(children: [child(1), child(0)]),
         ],
       ),
     );
@@ -101,18 +97,21 @@ class ContentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox.square(
-        dimension: 400,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(context.responsiveValue(10, 15)),
-              color: ColorsTheme.pinkAccent,
-            ),
-            child: SizedBox.square(
-              dimension: context.responsiveValue(200, 400),
+    return Expanded(
+      child: Center(
+        child: SizedBox.square(
+          dimension: 400,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.circular(context.responsiveValue(10, 15)),
+                color: ColorsTheme.pinkAccent,
+              ),
+              child: SizedBox.square(
+                dimension: context.responsiveValue(200, 400),
+              ),
             ),
           ),
         ),

@@ -10,7 +10,8 @@ class AvatarSection extends StatelessWidget {
     return SizedBox(
       width: context.currentBreakPoint,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: context.responsiveValue(30, 100)),
+        padding:
+            EdgeInsets.symmetric(horizontal: context.responsiveValue(30, 100)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,7 +31,7 @@ class AvatarSection extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: ResponsiveText(
                           text:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                           fontSizeRange: Range(15, 25),
                           textAlign: TextAlign.justify,
                           style: TextStyle(
@@ -39,13 +40,14 @@ class AvatarSection extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox.square(dimension: 30,)
+                    const SizedBox.square(
+                      dimension: 30,
+                    )
                   ],
                   breakPoints: (bp) => bp.extremes,
-                  childrenFlexOnBreakPoints: const [[], null],
-                  layouts: [
-                    FlexLayout.row(children: [0, 1]),
-                    FlexLayout.column(children: [0, 2, 1]),
+                  layouts: (child) => [
+                    Row(children: [child(0), child(1)]),
+                    Column(children: [child(0), child(2), child(1)]),
                   ],
                 ),
               ),

@@ -8,32 +8,66 @@ class ExampleLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      layoutCount: 1,
+      layoutCount: 5,
       children: [
-        Box(ColorsTheme.pink, "one"),
-        Box(ColorsTheme.pinkAccent, "two"),
-        Box(ColorsTheme.white, "three"),
-        const Box(Colors.tealAccent, "fourth"),
-        const Box(Colors.deepPurpleAccent, "fifth"),
+        Box(ColorsTheme.pink, "zero"),
+        Box(ColorsTheme.pinkAccent, "one", flex: 2),
+        Box(ColorsTheme.white, "two"),
+        const Box(Colors.tealAccent, "three"),
+        const Box(Colors.deepPurpleAccent, "four"),
         const Box(Colors.orangeAccent, "?"),
+        Box(ColorsTheme.pink, "zero - but different", flex: 2),
       ],
       breakPoints: (bp) => [
         1200,
-        // 1100,
-        // 1000,
-        // 900,
-        // 800,
+        1100,
+        1000,
+        900,
+        800,
       ],
-      layouts: [
-        MultiFlexLayout.column(
+      layouts: (child) => [
+        Column(
           children: [
-            FlexLayout.row(children: [0, 1]),
-            MultiFlexLayout.row(
+            Row(children: [child(0), child(1)]).expanded(),
+            Row(
               children: [
-                FlexLayout.column(children: [2, 3]),
-                SingleFlexLayout(4),
+                Column(children: [child(2), child(3)]).expanded(2),
+                child(4),
               ],
-            )
+            ).expanded()
+          ],
+        ),
+        Column(
+          children: [
+            Row(children: [child(6), child(2)]).expanded(),
+            Row(
+              children: [
+                Column(children: [child(2), child(3)]).expanded(),
+                child(4),
+              ],
+            ).expanded()
+          ],
+        ),
+        Row(
+          children: [
+            Column(children: [child(6), child(0)]).expanded(),
+            Column(
+              children: [
+                Row(children: [child(2), child(3)]).expanded(),
+                child(4),
+              ],
+            ).expanded()
+          ],
+        ),
+        Column(
+          children: [
+            child(3),
+            child(4),
+          ],
+        ),
+        Column(
+          children: [
+            child(5),
           ],
         ),
       ],
@@ -42,14 +76,16 @@ class ExampleLayout extends StatelessWidget {
 }
 
 class Box extends StatelessWidget {
-  const Box(this.color, this.text, {Key? key}) : super(key: key);
+  const Box(this.color, this.text,  {Key? key, this.flex = 1}) : super(key: key);
 
   final Color color;
   final String text;
+  final int flex;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      flex: flex,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
