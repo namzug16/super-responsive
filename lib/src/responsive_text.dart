@@ -1,14 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/responsive_percentage_value.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
 /// A util widget that calculates the font size of a text based
 /// on the given range [fontSizeRange] and the global breakpoints.
-///
-/// if [maxWidthWrapper] is specified, the new font size value will be
-/// calculated from the mapped value of the screen width between the range 0 -
-/// [maxWidthWrapper] and the range [fontSizeRange].
 ///
 /// if [textBreakpoints] are specified the font size will take those values
 /// instead of continuously calculating new values. For example let's take
@@ -23,7 +18,6 @@ class ResponsiveText extends StatelessWidget {
     Key? key,
     required this.text,
     required this.fontSizeRange,
-    this.maxWidthWrapper,
     this.textBreakpoints,
     this.style,
     this.strutStyle,
@@ -42,13 +36,7 @@ class ResponsiveText extends StatelessWidget {
   ///
   final String text;
 
-  /// if [maxWidthWrapper] is specified, the new font size value will be
-  /// calculated from the mapped value of the screen width between the range 0 -
-  /// [maxWidthWrapper] and the range [fontSizeRange].
-  final double? maxWidthWrapper;
-
   ///
-
   final Range fontSizeRange;
 
   /// if [textBreakpoints] are specified the font size will take those values
@@ -60,51 +48,39 @@ class ResponsiveText extends StatelessWidget {
   final List<double>? textBreakpoints;
 
   ///
-
   final TextStyle? style;
 
   ///
-
   final StrutStyle? strutStyle;
 
   ///
-
   final TextAlign? textAlign;
 
   ///
-
   final TextDirection? textDirection;
 
   ///
-
   final Locale? locale;
 
   ///
-
   final bool? softWrap;
 
   ///
-
   final TextOverflow? overflow;
 
   ///
-
   final double? textScaleFactor;
 
   ///
-
   final int? maxLines;
 
   ///
-
   final String? semanticsLabel;
 
   ///
-
   final TextWidthBasis? textWidthBasis;
 
   ///
-
   final TextHeightBehavior? textHeightBehavior;
 
   double _fontSize(double value) {
@@ -124,16 +100,7 @@ class ResponsiveText extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final fontSize = _fontSize(
-          maxWidthWrapper == null
-              ? context.responsiveValue(fontSizeRange.min, fontSizeRange.max)
-          // TODO refactor responsive text logic
-              : mapValue(
-                  constraints.maxWidth,
-                  0,
-                  maxWidthWrapper!,
-                  fontSizeRange.max,
-                  fontSizeRange.min,
-                ),
+          context.responsiveValue(fontSizeRange.min, fontSizeRange.max),
         );
 
         final _style = style?.copyWith(fontSize: fontSize) ??
