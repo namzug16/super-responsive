@@ -44,7 +44,7 @@ class AvatarSection extends StatelessWidget {
                       dimension: 30,
                     )
                   ],
-                  breakPoints: (bp) => bp.extremes,
+                  breakpoints: (bp) => bp.extremes,
                   layouts: (child) => [
                     Row(children: [child(0), child(1)]),
                     Column(children: [child(0), child(2), child(1)]),

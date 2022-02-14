@@ -15,7 +15,7 @@ class FirstSection extends StatelessWidget {
     const gap = ResponsiveGap(10, 25);
 
     return SizedBox(
-        width: context.breakPoints.first,
+        width: context.breakpoints.first,
         height: context.responsiveValue(400, 600),
         child: Stack(
           fit: StackFit.expand,

@@ -5,7 +5,7 @@ import 'package:super_responsive/src/super_responsive.dart';
 /// A util class that can be used with [ResponsiveLayout]
 ///
 /// It returns a [SizedBox.square] with dimension equal to the
-/// mapped value from the size of the screen on the range range breakPoints.extremes
+/// mapped value from the size of the screen on the range range breakpoints.extremes
 /// of the closes [SuperResponsive] widget in the widget
 /// tree and its range [min] - [max]
 ///

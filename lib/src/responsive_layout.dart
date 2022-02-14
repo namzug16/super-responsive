@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 import 'package:super_responsive/src/utils.dart';
 
-/// A callback used in [ResponsiveLayout], it exposes the [breakPoints] of
+/// A callback used in [ResponsiveLayout], it exposes the [breakpoints] of
 /// the closest [SuperResponsive] widget in the widget tree.
-typedef BreakPointsBuilder = List<double> Function(BreakPoints breakPoints);
+typedef BreakpointsBuilder = List<double> Function(Breakpoints breakpoints);
 
 /// A callback used in [ResponsiveLayout], it exposes a function called "child",
 /// that accepts as an input and integer and return the child of that index
@@ -19,7 +19,7 @@ class ResponsiveLayout extends StatelessWidget {
     Key? key,
     required this.layoutCount,
     required this.children,
-    required this.breakPoints,
+    required this.breakpoints,
     required this.layouts,
   })  : super(key: key);
 
@@ -30,23 +30,23 @@ class ResponsiveLayout extends StatelessWidget {
   /// All the children that can be used in the [layouts]
   final List<Widget> children;
 
-  /// A callback method that exposes the [breakPoints] of the closest
+  /// A callback method that exposes the [breakpoints] of the closest
   /// [SuperResponsive] widget, so that it can be used if needed. For examples
   ///
   /// ```dart
   /// ...
   /// // the widget has only two possible layouts and uses the extremes as
   /// // break points
-  /// breakPoints: (breakPoints) => breakPoints.extremes
+  /// breakpoints: (breakpoints) => breakpoints.extremes
   /// ...
   ///
   /// ...
-  /// breakPoints: (_) => [1200, 900, 700, 500] // your custom break points for this widget
+  /// breakpoints: (_) => [1200, 900, 700, 500] // your custom break points for this widget
   /// ...
   ///
   /// ```
   ///
-  final BreakPointsBuilder breakPoints;
+  final BreakpointsBuilder breakpoints;
 
   /// The layouts used in this widget.
   /// An specific layout is returned based on the current break point,
@@ -58,10 +58,10 @@ class ResponsiveLayout extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final _breakPoints = breakPoints(context.breakPoints);
-        assert(_breakPoints.length == layoutCount, "Amount of break points does not correspond to layoutCount");
+        final _breakpoints = breakpoints(context.breakpoints);
+        assert(_breakpoints.length == layoutCount, "Amount of break points does not correspond to layoutCount");
         final index = indexBreakPoint(
-            constraints.maxWidth, _breakPoints);
+            constraints.maxWidth, _breakpoints);
 
         final _layouts = layouts((i) => children[i]);
 

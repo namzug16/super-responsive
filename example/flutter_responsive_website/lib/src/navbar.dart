@@ -9,7 +9,7 @@ class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: context.breakPoints.first,
+      width: context.breakpoints.first,
       height: context.responsiveValue(60, 80),
       color: ColorsTheme.white,
       child: ResponsiveLayout(
@@ -19,7 +19,7 @@ class Navbar extends StatelessWidget {
           NavbarButtons(),
           NavbarIcon(),
         ],
-        breakPoints: (bp) => bp.extremes,
+        breakpoints: (bp) => bp.extremes,
         layouts: (child) => [
           Row(children: [child(0), child(1)]),
           Row(children: [child(0), child(2)]),

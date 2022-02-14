@@ -56,14 +56,14 @@ class Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.breakPoints.when(
+      height: context.breakpoints.when(
           context: context,
           first: (_) => 550,
           second: (_) => context.responsiveValue(400, 750),
           third: (_) => 400),
       width: context.currentBreakPoint,
       child: ResponsiveLayout(
-        breakPoints: (bp) => [bp.first, bp.second],
+        breakpoints: (bp) => [bp.first, bp.second],
         children: [
           Expanded(
             child: Center(

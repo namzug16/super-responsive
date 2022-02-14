@@ -18,7 +18,7 @@ class ExampleLayout extends StatelessWidget {
         const Box(Colors.orangeAccent, "?"),
         Box(ColorsTheme.pink, "zero - but different", flex: 2),
       ],
-      breakPoints: (bp) => [
+      breakpoints: (bp) => [
         1200,
         1100,
         1000,

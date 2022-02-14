@@ -3,7 +3,7 @@ include: package:very_good_analysis/analysis_options.2.4.0.yaml
 
 linter:
   rules:
-#    omit_local_variable_types: false
-#    prefer_single_quotes: false
-    ## yeah, i prefer it this way
-#    prefer_double_quotes: yes
+    omit_local_variable_types: false
+    prefer_single_quotes: false
+    # yeah, i prefer it this way
+    prefer_double_quotes: yes

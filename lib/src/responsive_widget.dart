@@ -4,20 +4,19 @@ import 'package:super_responsive/src/utils.dart';
 
 /// Returns a widget form [children] based on the current break point.
 ///
-/// If [breakPoints] is not specified, the widget will use the global
-/// breakPoints from the closest [SuperResponsive] widget.
+/// If [breakpoints] is not specified, the widget will use the global
+/// breakpoints from the closest [SuperResponsive] widget.
 ///
 /// if [followsScreenWidth] is set to false, it will use the
 /// available space for the widget to find the current break
-/// point from its [breakPoints], or the global breakPoints from
+/// point from its [breakpoints], or the global breakpoints from
 /// [SuperResponsive] if they are not specified.
 class ResponsiveWidget extends StatelessWidget {
-
   /// Creates an instance of [ResponsiveWidget]
   const ResponsiveWidget({
     Key? key,
     required this.children,
-    this.breakPoints,
+    this.breakpoints,
     this.followsScreenWidth = true,
   }) : super(key: key);
 
@@ -25,30 +24,28 @@ class ResponsiveWidget extends StatelessWidget {
   final List<Widget> children;
 
   /// Break points for this specific widget
-  final BreakPoints? breakPoints;
+  final Breakpoints? breakpoints;
 
   /// If set to false, the widget will find the current
   /// break point from the available space.
   ///
-  /// If [breakPoints] have not been specified (meaning the variable
+  /// If [breakpoints] have not been specified (meaning the variable
   /// is null) and [followsScreenWidth] is set to false, it might caused
   /// an undesired behaviour
   final bool followsScreenWidth;
 
   @override
   Widget build(BuildContext context) {
-    if (breakPoints != null) {
-      assert(breakPoints!.list.length == children.length,
-          "Amount of Break Points must be equal to the amount of children in ResponsiveWidget");
-    }
+    final List<double> _breakpoints =
+        breakpoints?.list ?? context.breakpoints.list;
+    assert(breakpoints!.list.length == children.length,
+        "Amount of Break Points must be equal to the amount of children in ResponsiveWidget");
 
     return LayoutBuilder(builder: (context, constraints) {
       final double width = followsScreenWidth
           ? MediaQuery.of(context).size.width
           : constraints.maxWidth;
-      final List<double> _breakPoints =
-          breakPoints?.list ?? context.breakPoints.list;
-      final index = indexBreakPoint(width, _breakPoints);
+      final index = indexBreakPoint(width, _breakpoints);
 
       return children[index];
     });

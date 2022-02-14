@@ -1,21 +1,21 @@
 import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/exposed_utils.dart';
-import 'package:super_responsive/src/responsive_value.dart';
+import 'package:super_responsive/src/responsive_percentage_value.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
 /// A util widget that calculates the font size of a text based
-/// on the given range [fontSizeRange] and the global breakPoints.
+/// on the given range [fontSizeRange] and the global breakpoints.
 ///
 /// if [maxWidthWrapper] is specified, the new font size value will be
 /// calculated from the mapped value of the screen width between the range 0 -
 /// [maxWidthWrapper] and the range [fontSizeRange].
 ///
-/// if [textBreakPoints] are specified the font size will take those values
+/// if [textBreakpoints] are specified the font size will take those values
 /// instead of continuously calculating new values. For example let's take
 /// the range 20 - 30
-/// and the [textBreakPoints] - [30, 17, 20] --- when the calculated value is
+/// and the [textBreakpoints] - [30, 17, 20] --- when the calculated value is
 /// equal to 15 between the range 20 - 30, it will actually return 17, as is
-/// the closest value from the [textBreakPoints]
+/// the closest value from the [textBreakpoints]
 ///
 class ResponsiveText extends StatelessWidget {
   /// Creates a new instance of [ResponsiveText]
@@ -24,7 +24,7 @@ class ResponsiveText extends StatelessWidget {
     required this.text,
     required this.fontSizeRange,
     this.maxWidthWrapper,
-    this.textBreakPoints,
+    this.textBreakpoints,
     this.style,
     this.strutStyle,
     this.textAlign,
@@ -51,13 +51,13 @@ class ResponsiveText extends StatelessWidget {
 
   final Range fontSizeRange;
 
-  /// if [textBreakPoints] are specified the font size will take those values
+  /// if [textBreakpoints] are specified the font size will take those values
   /// instead of continuously calculating new values. For example let's take
   /// the range 20 - 30
-  /// and the [textBreakPoints] - [30, 17, 20] --- when the calculated value is
+  /// and the [textBreakpoints] - [30, 17, 20] --- when the calculated value is
   /// equal to 15 between the range 20 - 30, it will actually return 17, as is
-  /// the closest value from the [textBreakPoints]
-  final List<double>? textBreakPoints;
+  /// the closest value from the [textBreakpoints]
+  final List<double>? textBreakpoints;
 
   ///
 
@@ -108,9 +108,9 @@ class ResponsiveText extends StatelessWidget {
   final TextHeightBehavior? textHeightBehavior;
 
   double _fontSize(double value) {
-    if (textBreakPoints == null) return value;
+    if (textBreakpoints == null) return value;
 
-    return textBreakPoints!.reduce((_value, element) {
+    return textBreakpoints!.reduce((_value, element) {
       final double v1 = (value - _value).abs();
       final double v2 = (value - element).abs();
 
@@ -126,6 +126,7 @@ class ResponsiveText extends StatelessWidget {
         final fontSize = _fontSize(
           maxWidthWrapper == null
               ? context.responsiveValue(fontSizeRange.min, fontSizeRange.max)
+          // TODO refactor responsive text logic
               : mapValue(
                   constraints.maxWidth,
                   0,

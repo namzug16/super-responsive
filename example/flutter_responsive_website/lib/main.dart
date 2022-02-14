@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
        );
 
     return SuperResponsive(
-      breakPoints: BreakPoints(
+      breakpoints: Breakpoints(
         first: 1200,
         second: 900,
         third: 600,

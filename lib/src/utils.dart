@@ -1,7 +1,7 @@
 ///
-int indexBreakPoint(double width, List<double> breakPoints) {
-  for (final breakPoint in breakPoints.reversed) {
-    if (width - breakPoint < 0) return breakPoints.indexOf(breakPoint);
+int indexBreakPoint(double width, List<double> breakpoints) {
+  for (final breakPoint in breakpoints.reversed) {
+    if (width - breakPoint < 0) return breakpoints.indexOf(breakPoint);
   }
   return 0;
 }

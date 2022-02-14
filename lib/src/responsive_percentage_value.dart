@@ -48,19 +48,19 @@ typedef PercentageValue = double Function(double percentage, [Range? range]);
 ///
 /// It returns the assigned widget and exposes the context of the
 /// tree, [constraints] of the available space for the widget in case
-/// needed, the global [breakPoints] and two callbacks [percentageValueWidth]
+/// needed, the global [breakpoints] and two callbacks [percentageValueWidth]
 /// and [percentageValueHeight]. See [PercentageValue] for more info.
 typedef ResponsiveValueBuilderWidget = Widget Function(
   BuildContext context,
   BoxConstraints constraints,
-  BreakPoints breakPoints,
+  Breakpoints breakpoints,
   PercentageValue percentageValueWidth,
   PercentageValue percentageValueHeight,
 );
 
 /// A util builder class, that exposes the current context of the
 /// widget tree, the [BoxConstraints] of the widget, the global
-/// [BreakPoints] and two utils callback. see [PercentageValue] for more
+/// [Breakpoints] and two utils callback. see [PercentageValue] for more
 /// info on this callbacks.
 ///
 /// If [useScreenSize] is set to false, it will use the available space
@@ -90,7 +90,7 @@ class PercentageValueBuilder extends StatelessWidget {
         return builder(
           context,
           constraints,
-          context.breakPoints,
+          context.breakpoints,
           (double percentage, [Range? range]) => responsivePercentageValue(
             valuePercentage: percentage,
             valueRange: range,

@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/utils.dart';
 
-/// A callback used by the [BreakPoints]' method [BreakPoints.when]
+/// A callback used by the [Breakpoints]' method [Breakpoints.when]
 ///
 /// it exposes the current break point so that it can be used
 /// if wanted.
@@ -13,14 +13,14 @@ typedef BreakPointValue = double Function(double breakPoint);
 /// it is mainly used by the [SuperResponsive] widget, that makes
 /// it available on the entire widget three
 ///
-///[BreakPoints.first] and [BreakPoints.second] are required.
+///[Breakpoints.first] and [Breakpoints.second] are required.
 ///
-class BreakPoints {
-  /// Creates an instance of [BreakPoints]
+class Breakpoints {
+  /// Creates an instance of [Breakpoints]
   ///
-  /// it also populates [BreakPoints.list], [BreakPoints.extremes]
-  /// and [BreakPoints.last] based on the available break points.
-  BreakPoints({
+  /// it also populates [Breakpoints.list], [Breakpoints.extremes]
+  /// and [Breakpoints.last] based on the available break points.
+  Breakpoints({
     required this.first,
     required this.second,
     this.third,
@@ -28,17 +28,17 @@ class BreakPoints {
     this.fifth,
     this.sixth,
   }) {
-    _breakPointsList
+    _breakpointsList
       ..add(first)
       ..add(second);
     if (third != null) {
-      _breakPointsList.add(third!);
+      _breakpointsList.add(third!);
       if (fourth != null) {
-        _breakPointsList.add(fourth!);
+        _breakpointsList.add(fourth!);
         if (fifth != null) {
-          _breakPointsList.add(fifth!);
+          _breakpointsList.add(fifth!);
           if (sixth != null) {
-            _breakPointsList.add(sixth!);
+            _breakpointsList.add(sixth!);
           }
         }
       }
@@ -76,15 +76,15 @@ class BreakPoints {
   final double? sixth;
 
   /// Returns all your break points a List<int>
-  List<double> get list => _breakPointsList;
-  final List<double> _breakPointsList = [];
+  List<double> get list => _breakpointsList;
+  final List<double> _breakpointsList = [];
 
   /// Returns you last break point
   double get last => _last;
   double _last = 0;
 
-  /// Return a List<int> of two elements [BreakPoints.first] and
-  /// [BreakPoints.last]
+  /// Return a List<int> of two elements [Breakpoints.first] and
+  /// [Breakpoints.last]
   ///
   List<double> get extremes => _extremes;
   final List<double> _extremes = [];
@@ -107,12 +107,12 @@ class BreakPoints {
   /// Calls an specific callback based on the current break point,
   /// only the first and second cases are required.
   ///
-  /// if other cases are specified and the [BreakPoints] class
+  /// if other cases are specified and the [Breakpoints] class
   /// does not contain those break points, it calls the last valid callback.
   /// For example
   /// ```dart
   /// ...
-  /// final myValue = BreakPoints( first: 1000, second: 500).when(
+  /// final myValue = breakpoints( first: 1000, second: 500).when(
   ///                   context: context
   ///                   first: (breakPoint) => breakPoint, // returns 1000
   ///                   second: (breakPoint) => breakPoint, // returns 500
@@ -147,22 +147,22 @@ class BreakPoints {
 
   @override
   String toString() {
-    return "BreakPoints(first: $first, second: $second, third: $third, fourth: $fourth, fifth: $fifth, sixth: $sixth, last: $last, list: $list, extremes: $extremes)";
+    return "breakpoints(first: $first, second: $second, third: $third, fourth: $fourth, fifth: $fifth, sixth: $sixth, last: $last, list: $list, extremes: $extremes)";
   }
 }
 
-/// Widget used to make available our [BreakPoints] in the entire
+/// Widget used to make available our [breakpoints] in the entire
 /// widget three, it also exposes
 class SuperResponsive extends InheritedWidget {
   /// Creates an instance of [SuperResponsive] widget
   const SuperResponsive({
     Key? key,
-    required this.breakPoints,
+    required this.breakpoints,
     required Widget child,
   }) : super(key: key, child: child);
 
   /// [SuperResponsive]'s break points
-  final BreakPoints breakPoints;
+  final Breakpoints breakpoints;
 
   /// The data from the closest instance of this class that encloses the given
   /// context.
@@ -177,14 +177,17 @@ class SuperResponsive extends InheritedWidget {
     return result!;
   }
 
-  /// Maps the size of the screen from the range ```breakPoints.last``` -
-  /// ```breakPoints.first``` to the given range [min] - [max]
+  /// Maps the size of the screen from the range ```breakpoints.last``` -
+  /// ```breakpoints.first``` to the given range [min] - [max]
   double responsiveValueOfExtremes(
-          BuildContext context, double min, double max) =>
+    BuildContext context,
+    double min,
+    double max,
+  ) =>
       mapValue(
         MediaQuery.of(context).size.width,
-        breakPoints.last,
-        breakPoints.first,
+        breakpoints.last,
+        breakpoints.first,
         min,
         max,
       );
@@ -193,15 +196,14 @@ class SuperResponsive extends InheritedWidget {
   bool updateShouldNotify(SuperResponsive oldWidget) => false;
 }
 
-/// Extensions for [BuildContext] containing [breakPoints], [responsiveValue],
+/// Extensions for [BuildContext] containing [breakpoints], [responsiveValue],
 /// [currentBreakPoint]
 extension ResponsiveContext on BuildContext {
-
   /// Returns break points from the closest [SuperResponsive] widget
   /// in the widget tree
-  BreakPoints get breakPoints => SuperResponsive.of(this).breakPoints;
+  Breakpoints get breakpoints => SuperResponsive.of(this).breakpoints;
 
-  /// Maps the size of the screen from the range breakPoints.extremes
+  /// Maps the size of the screen from the range breakpoints.extremes
   /// to the given range [min] - [max].
   /// See [SuperResponsive] for more info.
   double responsiveValue(double min, double max) =>
@@ -210,5 +212,5 @@ extension ResponsiveContext on BuildContext {
   /// Returns the current break point.
   /// see [SuperResponsive] for more info
   double get currentBreakPoint =>
-      SuperResponsive.of(this).breakPoints.currentBreakPoint(this);
+      SuperResponsive.of(this).breakpoints.currentBreakPoint(this);
 }
