@@ -4,7 +4,7 @@ Super Responsive
 </h1>
 
 <p align="center">
-<img src="https://github.com/namzug16/super-responsive/tree/master/assets/presentation.png" width="100%" alt="SuperResponsive" />
+<img src="https://github.com/namzug16/super-responsive/blob/master/assets/presentation.png" width="100%" alt="SuperResponsive" />
 </p>
 
 ---
