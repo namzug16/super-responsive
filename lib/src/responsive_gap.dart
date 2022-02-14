@@ -43,7 +43,7 @@ class ResponsiveGap extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox.square(
       dimension: reversed
-          ? (max - context.responsiveValue(min, max)).clamp(min, max)
+          ? ((max + min) - context.responsiveValue(min, max)).clamp(min, max)
           : context.responsiveValue(min, max),
     );
   }

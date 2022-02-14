@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
 Then you will be able to use all our features!!!
 
 ### Responsive Value
+#### - responsiveValue()
 In order to get a responsive design, we should have a responsive value.
 This value can be withing any range that we specify, For example:
 
@@ -74,7 +75,7 @@ Widget build(BuildContext context) {
 }
 ...
 ```
-
+#### - breakpoints.when()
 In case you don't want to calculate this value in that way and want to assign 
 specific values depending on the current breakpoint, you can use the ```when```
 method inside the ```Breakpoints``` class.
@@ -93,6 +94,28 @@ Widget build(BuildContext context) {
       fourth: (_) => 50, // we don't have a fourth breakpoint in our SuperResponsive widget,
       // so it will return the last valid case, in this case third: (_) => context.responsiveValue(100, 300)
     ),
+    height: 300,
+    color: Colors.red,
+  );
+}
+...
+```
+#### - customResponsiveValue()
+There is also the possibility to use a custom responsive value.
+Which will calculate the value based on the new breakpoint range 
+that you specify and the value range.
+```dart
+...
+@override
+Widget build(BuildContext context) {
+  return Container(
+    width: context.customReponsiveValue(
+    // you can use some of your breakpoints, or any
+    // other value that you want
+    breakpointsRange: (breakPoints) => 
+        Range(breakpoints.second, breakpoints.first),
+    valueRange: Range(100, 500),
+  ),
     height: 300,
     color: Colors.red,
   );
@@ -147,6 +170,67 @@ Widget build(BuildContext context) {
     // 15,
     // 20,
     // ]
+  );
+}
+...
+```
+###Responsive Gap
+```dart
+...
+@override
+Widget build(BuildContext context) {
+  // ! it'll return a SizedBox square with dimension equal
+  // ! to the responsive value of range [100, 300]
+  return ResponsiveGap(100, 300);
+  
+  // ! you can also create an "INVERSE" gap, which will 
+  // ! have as a dimension the inverse value. For example,
+  // ! if the value is 300 and the range is [100, 300],
+  // ! it will have a final value of 100
+  return ResponsiveGap(100, 300, reversed: true);
+}
+...
+```
+
+###Responsive Layout
+
+With this widget you will be able to write complex layouts
+and make them easier to read, understand and maintain.
+
+The concept is very simple, specify how many layouts you want, the children
+that will be available for those layouts , your breakpoints(which most of the time are your SuperResponsive breakpoints)
+and then you layouts.
+
+```dart
+...
+@override
+Widget build(BuildContext context) {
+  return ResponsiveLayout(
+    layoutCount: 3,
+    children: [
+      Widget0(),
+      Widget1(),
+      Widget2(),
+      Widget3(),
+      Widget4(),
+    ],
+    // ! you can use any breakpoints you want
+    breakpoints: (breakpoints) => breakpoints,
+    layouts: (child) => [
+      // ! Some complex layout with multiple Rows and Columns
+      Column(
+        children: [
+          // ! the function child() will return the child 
+          // ! of that specific index => child(0) == Widget0()
+          Row(children:[child(1), child(0)]).expanded(),
+          Row(children:[child(2), child(2)]).expanded(2),
+        ]   
+      ),
+      // ! some very simple layout
+      Row(children:[child(3), child(3)]),
+      // ! or just return one of your children
+      child(4),
+    ]
   );
 }
 ...
