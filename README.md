@@ -56,13 +56,13 @@ we specified).
 ```dart
 ...
 /// in a more graphical way
-/// breakpoints range -> [600, 1200]
-/// our value range -> [100, 500]
-/// when screen width == 800 in the range [600, 1200], 
-/// this value will be mapped to the range [100, 500]
+/// breakpoints extremes -> [600, 1200]
+/// our value's range -> [100, 500]
+/// when screen width == 800 in the range of [600, 1200], 
+/// this value will be mapped to the range of [100, 500]
 /// and it will return the value = 233.333
-/// all this calculation is made by the [mapValue] function,
-/// that can be used by you in any way you want too.
+/// all this calculation is made by the (mapValue) function,
+/// that can also be used by you in any way you want to.
 
 @override
 Widget build(BuildContext context) {
@@ -136,8 +136,17 @@ Widget build(BuildContext context) {
   return ResponsiveText(
     text: "Super Responsive",
     fontSizeRange: Range(20, 30),
-    // ! we can also specify new breakpoints for only this widget
-    // 
+    // ! we can also specify custom breakpoints for only this widget
+    // ! this means that the result of the responsive value set 
+    // ! for the font size, will be set to the closest value of the
+    // ! textBreakpoints. For example, if the value should be
+    // ! 17, it will be set to 17 because it is the closest value from the 
+    // ! set of textBreakpoints 
+    // textBreakpoints: [
+    // 30,
+    // 15,
+    // 20,
+    // ]
   );
 }
 ...
