@@ -246,7 +246,7 @@ Widget build(BuildContext context) {
 
 ###Percentage Value
 
-Here we have the method 
+Here we have the function 
 ```dart
 double responsivePercentageValue({
 required double valuePercentage,
@@ -260,7 +260,7 @@ be clamped if valueRange is specified
 It also comes with two useful extension on the BuildContext class 
 
 ```dart
-
+...
 @override
 Widget build(BuildContext context) {
   return Container(
@@ -272,7 +272,7 @@ Widget build(BuildContext context) {
     color: Colors.red,
   );
 }
-
+..
 ```
 
 ###Percentage Value Builder
