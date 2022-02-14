@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/utils.dart';
 import 'package:super_responsive/super_responsive.dart';
 
