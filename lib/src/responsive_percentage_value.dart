@@ -22,7 +22,7 @@ class Range {
 /// Return a percentage value -> limit * valuePercentage%
 /// and it clamps it to a respective [valueRange] if given.
 ///
-/// This function is used in the [PercentageValueBuilder] widget.
+/// This function is used in the [PercentageValueBuilder] widget and in the [PercentageContext] extensions
 double responsivePercentageValue({
   required double valuePercentage,
   required Range? valueRange,
@@ -105,4 +105,25 @@ class PercentageValueBuilder extends StatelessWidget {
       },
     );
   }
+}
+
+/// Extensions for [BuildContext] containing [percentageValueWidth] and [percentageValueHeight]
+extension PercentageContext on BuildContext {
+  /// It will return a certain specified percentage >= 0 && <= 100 of the
+  /// current screen width, the value will be clamped to the [valueRange]
+  /// if specified
+  double percentageValueWidth(double percentage, [Range? valueRange]) =>
+      responsivePercentageValue(
+          valuePercentage: percentage,
+          valueRange: valueRange,
+          limit: MediaQuery.of(this).size.width);
+
+  /// It will return a certain specified percentage >= 0 && <= 100 of the
+  /// current screen height, the value will be clamped to the [valueRange]
+  /// if specified
+  double percentageValueHeight(double percentage, [Range? valueRange]) =>
+      responsivePercentageValue(
+          valuePercentage: percentage,
+          valueRange: valueRange,
+          limit: MediaQuery.of(this).size.height);
 }

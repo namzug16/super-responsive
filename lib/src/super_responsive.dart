@@ -198,7 +198,7 @@ class SuperResponsive extends InheritedWidget {
 }
 
 /// Extensions for [BuildContext] containing [breakpoints], [responsiveValue],
-/// [currentBreakPoint]
+/// [customResponsiveValue], [currentBreakPoint]
 extension ResponsiveContext on BuildContext {
   /// Returns break points from the closest [SuperResponsive] widget
   /// in the widget tree

@@ -223,6 +223,10 @@ Widget build(BuildContext context) {
           // ! the function child() will return the child 
           // ! of that specific index => child(0) == Widget0()
           Row(children:[child(1), child(0)]).expanded(),
+          // ! .expanded(int flex) is an extension for the Row and Column Widgets
+          // ! it can be used if you want to wrap one of these two inside 
+          // ! an Expanded widget, it has been mainly created to make your
+          // ! layout more readable
           Row(children:[child(2), child(2)]).expanded(2),
         ]   
       ),
@@ -231,6 +235,67 @@ Widget build(BuildContext context) {
       // ! or just return one of your children
       child(4),
     ]
+  );
+}
+...
+```
+
+###Percentage Value
+
+Here we have the method 
+```dart
+double responsivePercentageValue({
+required double valuePercentage,
+required Range? valueRange,
+required double limit,
+}){}
+``` 
+that will return the specified percentage of a certain limit, and it'll 
+be clamped if valueRange is specified
+
+It also comes with two useful extension on the BuildContext class 
+
+```dart
+
+@override
+Widget build(BuildContext context) {
+  return Container(
+    // width will be always 50% of the current screen width
+    width: context.percentageValueWidth(50),
+    // height will be 50% of the screen height but clamped to the value of the 
+    // given range
+    height: context.percentageValueHeight(50, Range(100, 300)),
+    color: Colors.red,
+  );
+}
+
+```
+
+###Percentage Value Builder
+
+```dart
+...
+@override
+Widget build(BuildContext context) {
+  return PercentageValueBuilder(
+    // you can specify if this widget should use the screen size to calculate 
+    // the percentage value or its constraints
+    //useScreenSize: true
+    builder: (
+      context,
+      cosntraints, // BoxConstraints given by a LayoutBuilder
+      breakpoints, // breakpoints form the closest SuperResponsive widget
+      // these two functions will calculate an specified percentage of the 
+      // available space (constraints.maxWidth/maxHeight) or the screen width/height 
+      // if useScreenSize is set to true 
+      percentageValueWidth, 
+      percentageValueHeight,
+    ) => Container(
+          width: percentageValueWidth(50) // width will be always 50% of the screen width
+          // height will be 50% of the screen height but clamped to the value of the 
+          // given range
+          height: percentageValueHeight(50, Range(100, 200))
+      ),
   );
 }
 ...
