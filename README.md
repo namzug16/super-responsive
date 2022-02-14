@@ -127,7 +127,7 @@ Widget build(BuildContext context) {
 ...
 ```
 
-###Responsive Widget
+### Responsive Widget
 
 ```dart
 ...
@@ -154,7 +154,7 @@ Widget build(BuildContext context) {
 ...
 ```
 
-###ResponsiveText
+### ResponsiveText
 
 ```dart
 ...
@@ -178,7 +178,7 @@ Widget build(BuildContext context) {
 }
 ...
 ```
-###Responsive Gap
+### Responsive Gap
 ```dart
 ...
 @override
@@ -196,7 +196,7 @@ Widget build(BuildContext context) {
 ...
 ```
 
-###Responsive Layout
+### Responsive Layout
 
 With this widget you will be able to write complex layouts
 and make them easier to read, understand and maintain.
@@ -244,7 +244,7 @@ Widget build(BuildContext context) {
 ...
 ```
 
-###Percentage Value
+### Percentage Value
 
 Here we have the function 
 ```dart
@@ -275,7 +275,7 @@ Widget build(BuildContext context) {
 ..
 ```
 
-###Percentage Value Builder
+### Percentage Value Builder
 
 ```dart
 ...
