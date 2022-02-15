@@ -1,10 +1,9 @@
 name: super_responsive
 description: Utils and widgets to make your flutter apps and websites fully responsive.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 0.1.1
 
-version: 0.1.0
-
+homepage: https://pub.dev/packages/super_responsive
 repository: https://github.com/namzug16/super-responsive
 
 environment:
