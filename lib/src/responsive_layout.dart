@@ -40,7 +40,8 @@ class ResponsiveLayout extends StatelessWidget {
   /// ...
   ///
   /// ...
-  /// breakpoints: (_) => [1200, 900, 700, 500] // your custom break points for this widget
+  /// // your custom break points for this widget
+  /// breakpoints: (_) => [1200, 900, 700, 500]
   /// ...
   ///
   /// ```
@@ -72,7 +73,8 @@ class ResponsiveLayout extends StatelessWidget {
   }
 }
 
-/// A util extension to wrap a [Widget] in an [Expanded]  widget or a [Flexible], for more readability
+/// A util extension to wrap a [Widget] in an [Expanded]  widget or a
+/// [Flexible], for more readability
 /// when making complex layouts with [ResponsiveLayout].
 extension ResponsiveWidgetExtension on Widget {
 
@@ -86,7 +88,8 @@ extension ResponsiveWidgetExtension on Widget {
   ///
   Widget expanded([int flex = 1]) => Expanded(flex: flex, child: this);
 
-  /// Wraps this [Widget] in an [Flexible] widget, with an specific [flex] and [fit],
+  /// Wraps this [Widget] in an [Flexible] widget, with an specific [flex]
+  /// and [fit],
   /// for a better readability when making complex layouts specially
   /// when making complex layouts with nested [Row]s
   /// and [Column]s in a [ResponsiveLayout] widget.

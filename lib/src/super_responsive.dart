@@ -146,6 +146,7 @@ class Breakpoints {
 
   @override
   String toString() {
+    // ignore: lines_longer_than_80_chars
     return "breakpoints(first: $first, second: $second, third: $third, fourth: $fourth, fifth: $fifth, sixth: $sixth, last: $last, list: $list, extremes: $extremes)";
   }
 }
