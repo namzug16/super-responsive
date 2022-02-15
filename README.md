@@ -4,7 +4,7 @@ Super Responsive
 </h1>
 
 <p align="center">
-<img src="https://github.com/namzug16/super-responsive/blob/master/assets/presentation.png" width="100%" alt="SuperResponsive" />
+<img src="https://github.com/namzug16/super-responsive/raw/master/assets/presentation.png" width="100%" alt="SuperResponsive" />
 </p>
 
 ---
@@ -227,11 +227,13 @@ Widget build(BuildContext context) {
           // ! the function child() will return the child 
           // ! of that specific index => child(0) == Widget0()
           Row(children:[child(1), child(0)]).expanded(),
-          // ! .expanded(int flex) is an extension for the Row and Column Widgets
-          // ! it can be used if you want to wrap one of these two inside 
+          // ! .expanded({int flex}) is an extension on Widget
+          // ! it can be used if you want to wrap your widget inside 
           // ! an Expanded widget, it has been mainly created to make your
-          // ! layout more readable
-          Row(children:[child(2), child(2)]).expanded(2),
+          // ! layout more readable and to be used by Columns or Rows
+          Row(children:[child(2), child(2)]).expanded(flex: 2),
+          // ! there is also the extension .flexible({int flex, FlexFit fit})
+          child(3).flexible(flex: 2),
         ]   
       ),
       // ! some very simple layout
@@ -243,6 +245,12 @@ Widget build(BuildContext context) {
 }
 ...
 ```
+
+#### ⚠ Warning !!!!
+> DO NOT USE .expanded() and .flexible() on a widget 
+> that is already wrapped inside an Expanded or Flexible widget. 
+> 
+> Doing this will cause unexpected behavior and very ugly errors!!!.
 
 ### Percentage Value
 

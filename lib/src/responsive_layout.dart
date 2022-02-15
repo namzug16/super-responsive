@@ -13,7 +13,6 @@ typedef LayoutsBuilder = List<Widget> Function(Widget Function(int i) child);
 
 /// A util class that builds a certain layout based on the current break point.
 class ResponsiveLayout extends StatelessWidget {
-
   /// Creates a new instance of [ResponsiveLayout]
   const ResponsiveLayout({
     Key? key,
@@ -21,7 +20,7 @@ class ResponsiveLayout extends StatelessWidget {
     required this.children,
     required this.breakpoints,
     required this.layouts,
-  })  : super(key: key);
+  }) : super(key: key);
 
   /// It represent the amount of layouts this widget will
   /// be able to process
@@ -41,7 +40,8 @@ class ResponsiveLayout extends StatelessWidget {
   /// ...
   ///
   /// ...
-  /// breakpoints: (_) => [1200, 900, 700, 500] // your custom break points for this widget
+  /// // your custom break points for this widget
+  /// breakpoints: (_) => [1200, 900, 700, 500]
   /// ...
   ///
   /// ```
@@ -55,17 +55,17 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return LayoutBuilder(
       builder: (context, constraints) {
         final _breakpoints = breakpoints(context.breakpoints);
-        assert(_breakpoints.length == layoutCount, "Amount of break points does not correspond to layoutCount");
-        final index = indexBreakPoint(
-            constraints.maxWidth, _breakpoints);
+        assert(_breakpoints.length == layoutCount,
+            "Amount of break points does not correspond to layoutCount");
+        final index = indexBreakPoint(constraints.maxWidth, _breakpoints);
 
         final _layouts = layouts((i) => children[i]);
 
-        assert(_layouts.length == layoutCount, "Amount of layouts does not correspond to layoutCount");
+        assert(_layouts.length == layoutCount,
+            "Amount of layouts does not correspond to layoutCount");
 
         return layouts((i) => children[i])[index];
       },
@@ -73,24 +73,37 @@ class ResponsiveLayout extends StatelessWidget {
   }
 }
 
-/// A util extension to wrap a [Row] in an expanded widget, for more readability
-/// when making complex layouts with nested [Row]s and [Column]s
-extension ExpandRow on Row{
+/// A util extension to wrap a [Widget] in an [Expanded]  widget or a
+/// [Flexible], for more readability
+/// when making complex layouts with [ResponsiveLayout].
+extension ResponsiveWidgetExtension on Widget {
 
-  /// Wraps this [Row] in an [Expanded] widget, with an specific [flex],
-  /// for a better readability when making complex layouts with nested [Row]s
+  /// Wraps this [Widget] in an [Expanded] widget, with an specific [flex],
+  /// for a better readability when making complex layouts specially
+  /// when making complex layouts with nested [Row]s
   /// and [Column]s in a [ResponsiveLayout] widget.
+  ///
+  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
+  /// to avoid unexpected behavior and errors.
+  ///
   Widget expanded([int flex = 1]) => Expanded(flex: flex, child: this);
 
-}
-
-/// A util extension to wrap a [Column] in an expanded widget, for more readability
-/// when making complex layouts with nested [Row]s and [Column]s
-extension ExpandColumn on Column{
-
-  /// Wraps this [Column] in an [Expanded] widget, with an specific [flex],
-  /// for a better readability when making complex layouts with nested [Row]s
+  /// Wraps this [Widget] in an [Flexible] widget, with an specific [flex]
+  /// and [fit],
+  /// for a better readability when making complex layouts specially
+  /// when making complex layouts with nested [Row]s
   /// and [Column]s in a [ResponsiveLayout] widget.
-  Widget expanded([int flex = 1]) => Expanded(flex: flex, child: this);
-
+  ///
+  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
+  /// to avoid unexpected behavior and errors.
+  ///
+  Widget flexible({
+    int flex = 1,
+    FlexFit fit = FlexFit.loose,
+  }) =>
+      Flexible(
+        flex: flex,
+        fit: fit,
+        child: this,
+      );
 }
