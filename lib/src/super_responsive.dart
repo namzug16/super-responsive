@@ -28,7 +28,9 @@ class Breakpoints {
     this.fifth,
     this.sixth,
   }) {
-    _breakpointsList..add(first)..add(second);
+    _breakpointsList
+      ..add(first)
+      ..add(second);
     if (third != null) {
       _breakpointsList.add(third!);
       if (fourth != null) {
@@ -44,7 +46,9 @@ class Breakpoints {
 
     _last = list.isNotEmpty && list.length > 1 ? list.last : 0;
 
-    _extremes..add(first)..add(last);
+    _extremes
+      ..add(first)
+      ..add(last);
   }
 
   /// First break points
@@ -91,12 +95,9 @@ class Breakpoints {
   /// by comparing the [list] of break points and the
   /// actual size of the screen
   ///
-  double currentBreakPoint(BuildContext context) {
+  double currentBreakPoint(double maxWidth) {
     final index = indexBreakPoint(
-      MediaQuery
-          .of(context)
-          .size
-          .width,
+      maxWidth,
       list,
     );
 
@@ -121,7 +122,7 @@ class Breakpoints {
   /// ```
   ///
   double when({
-    required BuildContext context,
+    required double maxWidth,
     required BreakPointValue first,
     required BreakPointValue second,
     BreakPointValue? third,
@@ -129,7 +130,7 @@ class Breakpoints {
     BreakPointValue? fifth,
     BreakPointValue? sixth,
   }) {
-    final currentBP = currentBreakPoint(context);
+    final currentBP = currentBreakPoint(maxWidth);
     if (currentBP == this.first) return first(this.first);
     if (currentBP == this.second) return second(this.second);
     if (third == null) return second(this.second);
@@ -172,21 +173,20 @@ class SuperResponsive extends InheritedWidget {
   /// information
   static SuperResponsive of(BuildContext context) {
     final SuperResponsive? result =
-    context.dependOnInheritedWidgetOfExactType<SuperResponsive>();
+        context.dependOnInheritedWidgetOfExactType<SuperResponsive>();
     assert(result != null, 'No SuperResponsive Widget found in context');
     return result!;
   }
 
   /// Maps the size of the screen from the range ```breakpoints.last``` -
   /// ```breakpoints.first``` to the given range [min] - [max]
-  double responsiveValueOfExtremes(BuildContext context,
-      double min,
-      double max,) =>
+  double responsiveValueOfExtremes(
+    BuildContext context,
+    double min,
+    double max,
+  ) =>
       mapValue(
-        MediaQuery
-            .of(context)
-            .size
-            .width,
+        MediaQuery.of(context).size.width,
         breakpoints.last,
         breakpoints.first,
         min,
@@ -202,19 +202,14 @@ class SuperResponsive extends InheritedWidget {
 extension ResponsiveContext on BuildContext {
   /// Returns break points from the closest [SuperResponsive] widget
   /// in the widget tree
-  Breakpoints get breakpoints =>
-      SuperResponsive
-          .of(this)
-          .breakpoints;
+  Breakpoints get breakpoints => SuperResponsive.of(this).breakpoints;
 
   /// Returns the current break point.
   /// see [SuperResponsive] for more info
   double get currentBreakPoint =>
-      SuperResponsive
-          .of(this)
-          .breakpoints
-          .currentBreakPoint(this);
-
+      SuperResponsive.of(this).breakpoints.currentBreakPoint(
+            MediaQuery.of(this).size.width,
+          );
 
   /// Maps the size of the screen from the range breakpoints.extremes
   /// to the given range [min] - [max].
@@ -222,22 +217,17 @@ extension ResponsiveContext on BuildContext {
   double responsiveValue(double min, double max) =>
       SuperResponsive.of(this).responsiveValueOfExtremes(this, min, max);
 
-
   /// Maps the size of the screen from the range [breakpointsRange]
   /// to the given range [valueRange.min] - [valueRange.max].
   double customResponsiveValue({
     required Range Function(Breakpoints breakpoints) breakpointsRange,
     required Range valueRange,
-  }) => mapValue(
-    MediaQuery
-        .of(this)
-        .size
-        .width,
-    breakpointsRange(breakpoints).min,
-    breakpointsRange(breakpoints).max,
-    valueRange.min,
-    valueRange.max,
-  );
-
-
+  }) =>
+      mapValue(
+        MediaQuery.of(this).size.width,
+        breakpointsRange(breakpoints).min,
+        breakpointsRange(breakpoints).max,
+        valueRange.min,
+        valueRange.max,
+      );
 }
