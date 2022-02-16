@@ -93,7 +93,9 @@ class Breakpoints {
   ///
   /// Finds out which one is the current break point
   /// by comparing the [list] of break points and the
-  /// actual size of the screen
+  /// given [maxWidth], most of the time it is the
+  /// screen width but it can also be any value, for
+  /// example,
   ///
   double currentBreakPoint(double maxWidth) {
     final index = indexBreakPoint(
@@ -113,7 +115,7 @@ class Breakpoints {
   /// ```dart
   /// ...
   /// final myValue = breakpoints( first: 1000, second: 500).when(
-  ///                   context: context
+  ///                   context: context.mediaQueryWidth,
   ///                   first: (breakPoint) => breakPoint, // returns 1000
   ///                   second: (breakPoint) => breakPoint, // returns 500
   ///                   third: (breakPoint) => breakPoint, // returns 500
@@ -230,4 +232,11 @@ extension ResponsiveContext on BuildContext {
         valueRange.min,
         valueRange.max,
       );
+
+  /// Returns MediaQuery.of(context).size.width.
+  double get mediaQueryWidth => MediaQuery.of(this).size.width;
+
+  /// Returns MediaQuery.of(context).size.height.
+  double get mediaQueryHeight => MediaQuery.of(this).size.height;
+
 }
