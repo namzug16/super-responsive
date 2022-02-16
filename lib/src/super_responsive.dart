@@ -206,6 +206,24 @@ extension ResponsiveContext on BuildContext {
   /// in the widget tree
   Breakpoints get breakpoints => SuperResponsive.of(this).breakpoints;
 
+  double whenBreakpoints({
+    required BreakPointValue first,
+    required BreakPointValue second,
+    BreakPointValue? third,
+    BreakPointValue? fourth,
+    BreakPointValue? fifth,
+    BreakPointValue? sixth,
+  }) =>
+      breakpoints.when(
+        maxWidth: mediaQueryHeight,
+        first: first,
+        second: second,
+        third: third,
+        fourth: fourth,
+        fifth: fifth,
+        sixth: sixth,
+      );
+
   /// Returns the current break point.
   /// see [SuperResponsive] for more info
   double get currentBreakPoint =>
@@ -238,5 +256,4 @@ extension ResponsiveContext on BuildContext {
 
   /// Returns MediaQuery.of(context).size.height.
   double get mediaQueryHeight => MediaQuery.of(this).size.height;
-
 }

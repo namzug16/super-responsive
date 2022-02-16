@@ -92,6 +92,10 @@ Widget build(BuildContext context) {
     // context.breakpoints will return the breakpoints
     // of the closest SuperResponsive widget in the widget tree
     width: context.breakpoints.when(
+      // the current screen width
+      // you could also use context.whenBreakpoints() which will
+      // use as maxWidth the screen width automatically
+      maxWidth: context.mediaQueryWidth,
       first: (breakpoint) => breakpoint*0.5, // 50% of the breakpoint
       second: (_) => 300, // 300px
       third: (_) => context.responsiveValue(100, 300), // or a responsive value
