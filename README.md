@@ -15,6 +15,20 @@ A responsive library for Flutter that
 - makes your app more readable
 - makes your app more maintainable
 
+## Index
+
+1. [Getting Started](#Getting Started)
+    - [Responsive Value](#Responsive Value)
+    - [Responsive Widget](#Responsive Widget)
+    - [Responsive Text](#Responsive Text)
+    - [Responsive Gap](#Responsive Gap)
+    - [Responsive Layout](#Responsive Layout)
+    - [Percentage Value](#Percentage Value)
+    - [Percentage Value Builder](#Percentage Value Builder)
+    - [Percentage Value Builder](#Percentage Value Builder)
+
+
+
 ## Getting Started
 
 Welcome to [Super Responsive]!!!
@@ -92,6 +106,10 @@ Widget build(BuildContext context) {
     // context.breakpoints will return the breakpoints
     // of the closest SuperResponsive widget in the widget tree
     width: context.breakpoints.when(
+      // the current screen width
+      // you could also use context.whenBreakpoints() which will
+      // use as maxWidth the screen width automatically
+      maxWidth: context.mediaQueryWidth,
       first: (breakpoint) => breakpoint*0.5, // 50% of the breakpoint
       second: (_) => 300, // 300px
       third: (_) => context.responsiveValue(100, 300), // or a responsive value
@@ -154,7 +172,7 @@ Widget build(BuildContext context) {
 ...
 ```
 
-### ResponsiveText
+### Responsive Text
 
 ```dart
 ...
