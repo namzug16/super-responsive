@@ -1,3 +1,7 @@
+## 0.1.2+1
+* Fix current breakpoint logic
+* Add simple example
+
 ## 0.1.2
 * Breakpoints methods accept 
 now a maxWidth instead of the BuildContext.
