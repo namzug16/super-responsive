@@ -1,23 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:super_responsive/src/breakpoints.dart';
+import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 import 'package:super_responsive/super_responsive.dart';
-
-/// A util class to write a range in a more readable way.
-class Range {
-  /// Creates an instance of [Range]
-  Range(this.min, this.max);
-
-  /// Maximum value of the range
-  final double max;
-
-  /// Minimum value of the range
-  final double min;
-
-  @override
-  String toString() {
-    return "Range: ($min, $max)";
-  }
-}
 
 /// Return a percentage value -> limit * valuePercentage%
 /// and it clamps it to a respective [valueRange] if given.

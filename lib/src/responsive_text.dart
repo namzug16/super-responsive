@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_responsive/src/responsive_percentage_value.dart';
+import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
 /// A util widget that calculates the font size of a text based

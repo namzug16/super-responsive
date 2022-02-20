@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_responsive/src/breakpoints.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 import 'package:super_responsive/src/utils.dart';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:super_responsive/src/breakpoints.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 import 'package:super_responsive/src/utils.dart';
 
@@ -77,7 +78,6 @@ class ResponsiveLayout extends StatelessWidget {
 /// [Flexible], for more readability
 /// when making complex layouts with [ResponsiveLayout].
 extension ResponsiveWidgetExtension on Widget {
-
   /// Wraps this [Widget] in an [Expanded] widget, with an specific [flex],
   /// for a better readability when making complex layouts specially
   /// when making complex layouts with nested [Row]s
