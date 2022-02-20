@@ -13,6 +13,8 @@ class Range {
   /// Minimum value of the range
   final double min;
 
+  bool inside(double value) => value <= max && value >= min;
+
   @override
   String toString() {
     return "Range: ($min, $max)";

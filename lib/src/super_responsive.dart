@@ -217,7 +217,7 @@ extension ResponsiveContext on BuildContext {
     BreakPointValue? sixth,
   }) =>
       breakpoints.when(
-        maxWidth: mediaQueryHeight,
+        maxWidth: mediaQueryWidth,
         first: first,
         second: second,
         third: third,
