@@ -4,33 +4,8 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
-/// Extensions for Num, containing absolute length units like centimeters
-/// and inches, it also contains [min], [max], and [per]
+/// Extensions for Num, containing [min], [max], and [per]
 extension ResponsiveNum on num {
-
-  // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
-  // Absolute length units
-
-  /// Return value in Centimeters
-  double get cm => this * 37.8;
-
-  /// Return value in Millimeters
-  double get mm => this * 3.78;
-
-  /// Return value in Quarter-millimeters
-  double get q => this * 0.945;
-
-  /// Return value in Inches
-  double get inc => this * 96;
-
-  /// Return value in Picas
-  double get pc => this * 16;
-
-  /// Return value in Points
-  double get pt => this * inc/72;
-
-  /// Return value in Pixels
-  double get px => this.toDouble();
 
   /// Clamps your value with only a maximum value
   num max(num max) => this.clamp(double.negativeInfinity, max);

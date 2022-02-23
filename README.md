@@ -62,20 +62,6 @@ class MyApp extends StatelessWidget {
 
 // Num extensions
 
-100.cm // returns Centimeters
-
-100.mm // returns Millimeters
-
-100.q // returns Quarter-millimeters
-
-100.inc // returns Inches
-
-100.pc // returns Picas
-
-100.pt // returns Points
-
-100.px // returns Pixels
-
 100.max(99) // clamps the value with a maximum value of 99
 
 100.min(1) // clamps the value with a minimum value of 1
