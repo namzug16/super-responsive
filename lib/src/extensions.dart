@@ -4,22 +4,49 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
+/// Extensions for Num, containing absolute length units like centimeters
+/// and inches, it also contains [min], [max], and [per]
 extension ResponsiveNum on num {
 
   // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
   // Absolute length units
 
+  /// Return value in centimeters
   double get cm => this * 37.8;
+
+  /// Return value in millimeters
   double get mm => this * 3.78;
+
+  /// Return value in Quarter-millimeters
   double get Q => this * 0.945;
-  double get inches => this * 96;
+
+  /// Return value in Inches
+  double get inc => this * 96;
+
+  /// Return value in Picas
   double get pc => this * 16;
-  double get pt => this * inches/72;
+
+  /// Return value in Points
+  double get pt => this * inc/72;
+
+  /// Return value in Pixels
   double get px => this.toDouble();
 
+  /// Clamps your value with only a maximum value
   num max(num max) => this.clamp(double.negativeInfinity, max);
 
+  /// Clamps your value with only a minimum value
   num min(num min) => this.clamp(min, double.maxFinite);
+
+  /// Return the percentage of the given value
+  ///
+  /// The percentage must be between 0 and 100
+  double per(double percentage){
+    assert(percentage >= 0);
+    assert(percentage <= 100);
+
+    return this*percentage/100;
+  }
 
   }
 
@@ -83,25 +110,3 @@ extension ResponsiveContext on BuildContext {
   /// Returns MediaQuery.of(context).size.height.
   double get mediaQueryHeight => MediaQuery.of(this).size.height;
 }
-
-/// Extensions for [BuildContext] containing [percentageValueWidth] and [percentageValueHeight]
-extension PercentageContext on BuildContext {
-  /// It will return a certain specified percentage >= 0 && <= 100 of the
-  /// current screen width, the value will be clamped to the [valueRange]
-  /// if specified
-  double percentageValueWidth(double percentage, [Range? valueRange]) =>
-      responsivePercentageValue(
-          valuePercentage: percentage,
-          valueRange: valueRange,
-          limit: MediaQuery.of(this).size.width);
-
-  /// It will return a certain specified percentage >= 0 && <= 100 of the
-  /// current screen height, the value will be clamped to the [valueRange]
-  /// if specified
-  double percentageValueHeight(double percentage, [Range? valueRange]) =>
-      responsivePercentageValue(
-          valuePercentage: percentage,
-          valueRange: valueRange,
-          limit: MediaQuery.of(this).size.height);
-}
-
