@@ -11,14 +11,14 @@ extension ResponsiveNum on num {
   // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
   // Absolute length units
 
-  /// Return value in centimeters
+  /// Return value in Centimeters
   double get cm => this * 37.8;
 
-  /// Return value in millimeters
+  /// Return value in Millimeters
   double get mm => this * 3.78;
 
   /// Return value in Quarter-millimeters
-  double get Q => this * 0.945;
+  double get q => this * 0.945;
 
   /// Return value in Inches
   double get inc => this * 96;
@@ -79,7 +79,7 @@ extension ResponsiveContext on BuildContext {
 
   /// Returns the current break point.
   /// see [SuperResponsive] for more info
-  double get currentBreakPoint =>
+  double get currentBreakpoint =>
       SuperResponsive.of(this).breakpoints.currentBreakPoint(
         MediaQuery.of(this).size.width,
       );
