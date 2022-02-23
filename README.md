@@ -17,15 +17,12 @@ A responsive library for Flutter that
 
 ## Index
 
-1. [Getting Started](#Getting Started)
-    - [Responsive Value](#Responsive Value)
-    - [Responsive Widget](#Responsive Widget)
-    - [Responsive Text](#Responsive Text)
-    - [Responsive Gap](#Responsive Gap)
-    - [Responsive Layout](#Responsive Layout)
-    - [Percentage Value](#Percentage Value)
-    - [Percentage Value Builder](#Percentage Value Builder)
-    - [Percentage Value Builder](#Percentage Value Builder)
+1. [Getting Started](#getting-started)
+    - [Responsive Value](#responsive-value)
+    - [Responsive Widget](#responsive-widget)
+    - [Responsive Text](#responsive-text)
+    - [Responsive Gap](#responsive-gap)
+    - [Responsive Layout](#responsive-layout)
 
 
 
@@ -59,7 +56,42 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-Then you will be able to use all our features!!!
+### Extensions 
+
+```dart 
+
+// Num extensions
+
+100.max(99) // clamps the value with a maximum value of 99
+
+100.min(1) // clamps the value with a minimum value of 1
+
+100.per(50) // return 50% of 100
+// it can also be made like 100*0.5 but giving 
+// a value between 0-100 can be better in other cases
+
+// BoxConstraints extensions
+
+constraints.perWidth(50) // return 50% of maxWidth
+
+constraints.perHeight(10) // return 10% of maxHeight
+
+// BuildContext extensions
+
+context.breakpoints // breakpoints from the closest SuperResponsive widget
+
+context.currentBreakpoint // it will retrun the current breakpoint
+
+context.mediaQueryWidth // as in MediaQuery.of(context).size.width
+
+context.mediaQueryHeight // as in MediaQuery.of(context).size.height
+      
+      ↓
+      ↓
+      ↓
+      ↓
+      ↓ More BuildContext extensions
+```
 
 ### Responsive Value
 #### - responsiveValue()
@@ -269,67 +301,6 @@ Widget build(BuildContext context) {
 > that is already wrapped inside an Expanded or Flexible widget. 
 > 
 > Doing this will cause unexpected behavior and very ugly errors!!!.
-
-### Percentage Value
-
-Here we have the function 
-```dart
-double responsivePercentageValue({
-required double valuePercentage,
-required Range? valueRange,
-required double limit,
-}){}
-``` 
-that will return the specified percentage of a certain limit, and it'll 
-be clamped if valueRange is specified
-
-It also comes with two useful extension on the BuildContext class 
-
-```dart
-...
-@override
-Widget build(BuildContext context) {
-  return Container(
-    // width will be always 50% of the current screen width
-    width: context.percentageValueWidth(50),
-    // height will be 50% of the screen height but clamped to the value of the 
-    // given range
-    height: context.percentageValueHeight(50, Range(100, 300)),
-    color: Colors.red,
-  );
-}
-..
-```
-
-### Percentage Value Builder
-
-```dart
-...
-@override
-Widget build(BuildContext context) {
-  return PercentageValueBuilder(
-    // you can specify if this widget should use the screen size to calculate 
-    // the percentage value or its constraints
-    //useScreenSize: true
-    builder: (
-      context,
-      cosntraints, // BoxConstraints given by a LayoutBuilder
-      breakpoints, // breakpoints form the closest SuperResponsive widget
-      // these two functions will calculate an specified percentage of the 
-      // available space (constraints.maxWidth/maxHeight) or the screen width/height 
-      // if useScreenSize is set to true 
-      percentageValueWidth, 
-      percentageValueHeight,
-    ) => Container(
-          width: percentageValueWidth(50) // width will be always 50% of the screen width
-          // height will be 50% of the screen height but clamped to the value of the 
-          // given range
-          height: percentageValueHeight(50, Range(100, 200))
-      ),
-  );
-}
-...
-```
 
 ## Roadmap
 (a bit empty for the moment)

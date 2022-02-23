@@ -59,8 +59,12 @@ class MyHomePage extends StatelessWidget {
                         "MediaQuery.of(context).size.height: ${context.mediaQueryHeight}"),
                     Text(
                         "Responsive Value (300, 600): ${context.responsiveValue(300, 600)}"),
+                    Text(
+                        "Responsive Value (300, 600) max clamp: ${context.responsiveValue(300, 600).max(500)}"),
+                    Text(
+                        "Responsive Value (300, 600) min clamp: ${context.responsiveValue(300, 600).min(400)}"),
                     Text("Breakpoints: ${context.breakpoints.list}"),
-                    Text("Current breakpoint: ${context.currentBreakPoint}"),
+                    Text("Current breakpoint: ${context.currentBreakpoint}"),
                     Text(
                         "Custom breakpoints range responsive value: ${context.customResponsiveValue(
                       breakpointsRange: (_) => Range(500, 1000),

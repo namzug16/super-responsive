@@ -1,4 +1,3 @@
-
 import 'package:super_responsive/src/utils.dart';
 
 /// A callback used by the [Breakpoints]' method [Breakpoints.when]
