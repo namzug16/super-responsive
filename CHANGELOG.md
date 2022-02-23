@@ -1,3 +1,12 @@
+## 0.1.3
+* Add BoxConstraints extensions
+* Delete useless code: 
+  * Percentage Value 
+  * Percentage Value Builder
+
+The same result that these features gave, can be 
+achieved in a much simpler way.
+
 ## 0.1.2+1
 * Fix current breakpoint logic
 * Add simple example
