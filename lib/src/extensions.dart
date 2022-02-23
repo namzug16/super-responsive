@@ -4,6 +4,25 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
+extension ResponsiveNum on num {
+
+  // https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units
+  // Absolute length units
+
+  double get cm => this * 37.8;
+  double get mm => this * 3.78;
+  double get Q => this * 0.945;
+  double get inches => this * 96;
+  double get pc => this * 16;
+  double get pt => this * inches/72;
+  double get px => this.toDouble();
+
+  num max(num max) => this.clamp(double.negativeInfinity, max);
+
+  num min(num min) => this.clamp(min, double.maxFinite);
+
+  }
+
 /// Extensions for [BuildContext] containing [breakpoints], [responsiveValue],
 /// [customResponsiveValue], [currentBreakPoint]
 extension ResponsiveContext on BuildContext {
