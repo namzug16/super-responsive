@@ -1,27 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:super_responsive/src/breakpoints.dart';
-import 'package:super_responsive/src/range.dart';
-import 'package:super_responsive/src/super_responsive.dart';
+import 'package:super_responsive/src/extensions.dart';
 import 'package:super_responsive/super_responsive.dart';
-
-/// Return a percentage value -> limit * valuePercentage%
-/// and it clamps it to a respective [valueRange] if given.
-///
-/// This function is used in the [PercentageValueBuilder] widget and in the [PercentageContext] extensions
-double responsivePercentageValue({
-  required double valuePercentage,
-  required Range? valueRange,
-  required double limit,
-}) {
-  assert(valuePercentage >= 0 && valuePercentage <= 100,
-      "Value percentage must be between 0 and 100");
-
-  if (valueRange == null) {
-    return (valuePercentage / 100) * limit;
-  }
-
-  return (limit * valuePercentage / 100).clamp(valueRange.max, valueRange.min);
-}
 
 /// A callback used in the callback [ResponsiveValueBuilderWidget].
 ///
@@ -90,25 +69,4 @@ class PercentageValueBuilder extends StatelessWidget {
       },
     );
   }
-}
-
-/// Extensions for [BuildContext] containing [percentageValueWidth] and [percentageValueHeight]
-extension PercentageContext on BuildContext {
-  /// It will return a certain specified percentage >= 0 && <= 100 of the
-  /// current screen width, the value will be clamped to the [valueRange]
-  /// if specified
-  double percentageValueWidth(double percentage, [Range? valueRange]) =>
-      responsivePercentageValue(
-          valuePercentage: percentage,
-          valueRange: valueRange,
-          limit: MediaQuery.of(this).size.width);
-
-  /// It will return a certain specified percentage >= 0 && <= 100 of the
-  /// current screen height, the value will be clamped to the [valueRange]
-  /// if specified
-  double percentageValueHeight(double percentage, [Range? valueRange]) =>
-      responsivePercentageValue(
-          valuePercentage: percentage,
-          valueRange: valueRange,
-          limit: MediaQuery.of(this).size.height);
 }
