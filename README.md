@@ -70,6 +70,12 @@ class MyApp extends StatelessWidget {
 // it can also be made like 100*0.5 but giving 
 // a value between 0-100 can be better in other cases
 
+// BoxConstraints extensions
+
+constraints.perWidth(50) // return 50% of maxWidth
+
+constraints.perHeight(10) // return 10% of maxHeight
+
 // BuildContext extensions
 
 context.breakpoints // breakpoints from the closest SuperResponsive widget

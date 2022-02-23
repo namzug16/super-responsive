@@ -4,9 +4,8 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
-/// Extensions for Num, containing [min], [max], and [per]
+/// Extensions for Num containing [min], [max], and [per]
 extension ResponsiveNum on num {
-
   /// Clamps your value with only a maximum value
   num max(num max) => this.clamp(double.negativeInfinity, max);
 
@@ -16,14 +15,27 @@ extension ResponsiveNum on num {
   /// Return the percentage of the given value
   ///
   /// The percentage must be between 0 and 100
-  double per(double percentage){
+  double per(double percentage) {
     assert(percentage >= 0);
     assert(percentage <= 100);
 
-    return this*percentage/100;
+    return this * percentage / 100;
   }
+}
 
-  }
+/// Extensions for BoxConstraints containing [perWidth] and [perHeight]
+extension ResponsiveBoxConstraints on BoxConstraints {
+
+  /// Returns the the percentage of the maxWidth
+  ///
+  /// constraints.maxWidth.per(percentage);
+  double perWidth(double percentage) => this.maxWidth.per(percentage);
+
+  /// Returns the the percentage of the maxHeight
+  ///
+  /// constraints.maxHeight.per(percentage);
+  double perHeight(double percentage) => this.maxHeight.per(percentage);
+}
 
 /// Extensions for [BuildContext] containing [breakpoints], [responsiveValue],
 /// [customResponsiveValue], [currentBreakPoint]
@@ -56,8 +68,8 @@ extension ResponsiveContext on BuildContext {
   /// see [SuperResponsive] for more info
   double get currentBreakpoint =>
       SuperResponsive.of(this).breakpoints.currentBreakPoint(
-        MediaQuery.of(this).size.width,
-      );
+            MediaQuery.of(this).size.width,
+          );
 
   /// Maps the size of the screen from the range breakpoints.extremes
   /// to the given range [min] - [max].
