@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:super_responsive/src/extensions.dart';
 import 'package:super_responsive/src/range.dart';
-import 'package:super_responsive/src/super_responsive.dart';
 
 /// A util widget that calculates the font size of a text based
 /// on the given range [fontSizeRange] and the global breakpoints.

@@ -33,13 +33,10 @@ extension ResponsiveNum on num {
   /// context.mediaQueryHeight.when( (value) => value < 600, 700 );
   /// ```
   num when(Condition condition, num value) => condition(this) ? value : this;
-
-
 }
 
 /// Extensions for BoxConstraints containing [perWidth] and [perHeight]
 extension ResponsiveBoxConstraints on BoxConstraints {
-
   /// Returns the the percentage of the maxWidth
   ///
   /// constraints.maxWidth.per(percentage);

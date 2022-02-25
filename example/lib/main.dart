@@ -88,6 +88,7 @@ class MyHomePage extends StatelessWidget {
                       second: (bp) => 2,
                       third: (bp) => 3,
                       fourth: (bp) => 4,
+
                       /// there is no fifth breakpoints
                       /// therefore this value will never
                       /// be reached
