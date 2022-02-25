@@ -1,3 +1,9 @@
+## 0.1.4
+* Add ```when``` extension on Num
+* Add ```responsiveInverseVAlue``` extension on BuildContext 
+* Add ```responsiveInverseValue``` method 
+* Now ResponsiveLayout determines its breakpoints based on the screen width by default. 
+
 ## 0.1.3
 * Add BoxConstraints extensions
 * Delete useless code: 
