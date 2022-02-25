@@ -4,6 +4,9 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
+/// Helper typedef for [ResponsiveNum] extensions.
+typedef Condition = bool Function(num value);
+
 /// Extensions for Num containing [min], [max], and [per]
 extension ResponsiveNum on num {
   /// Clamps your value with only a maximum value
