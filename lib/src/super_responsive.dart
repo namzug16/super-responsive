@@ -42,6 +42,22 @@ class SuperResponsive extends InheritedWidget {
         max,
       );
 
+  /// Maps the size of the screen from the range ```breakpoints.last``` -
+  /// ```breakpoints.first``` to the given range [min] - [max] and inverses it.
+  double responsiveInverseValueOfExtremes(
+    BuildContext context,
+    double min,
+    double max,
+  ) =>
+      (min + max) -
+      mapValue(
+        MediaQuery.of(context).size.width,
+        breakpoints.last,
+        breakpoints.first,
+        min,
+        max,
+      );
+
   @override
   bool updateShouldNotify(SuperResponsive oldWidget) => false;
 }

@@ -4,6 +4,9 @@ import 'package:super_responsive/src/exposed_utils.dart';
 import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
+/// Helper typedef for [ResponsiveNum] extensions.
+typedef Condition = bool Function(num value);
+
 /// Extensions for Num containing [min], [max], and [per]
 extension ResponsiveNum on num {
   /// Clamps your value with only a maximum value
@@ -21,11 +24,19 @@ extension ResponsiveNum on num {
 
     return this * percentage / 100;
   }
+
+  /// Return the given value if the condition is true
+  ///
+  /// ```dart
+  /// // this means that if the Height of the screen is less than 600
+  /// // then the final value will be 700
+  /// context.mediaQueryHeight.when( (value) => value < 600, 700 );
+  /// ```
+  num when(Condition condition, num value) => condition(this) ? value : this;
 }
 
 /// Extensions for BoxConstraints containing [perWidth] and [perHeight]
 extension ResponsiveBoxConstraints on BoxConstraints {
-
   /// Returns the the percentage of the maxWidth
   ///
   /// constraints.maxWidth.per(percentage);
@@ -76,6 +87,19 @@ extension ResponsiveContext on BuildContext {
   /// See [SuperResponsive] for more info.
   double responsiveValue(double min, double max) =>
       SuperResponsive.of(this).responsiveValueOfExtremes(this, min, max);
+
+  /// Maps the size of the screen from the range breakpoints.extremes
+  /// to the given range [min] - [max] and inverses it.
+  /// See [SuperResponsive] for more info.
+  ///
+  /// ```dart
+  /// // instead of returning 100 when the breakpoint is first, it
+  /// // will return 0, and when the breakpoints is last, it will return 100
+  /// // in short, the inverse of the original responsiveValue()
+  /// context.responsiveInverseValue(0, 100);
+  /// ```
+  double responsiveInverseValue(double min, double max) =>
+      SuperResponsive.of(this).responsiveInverseValueOfExtremes(this, min, max);
 
   /// Maps the size of the screen from the range [breakpointsRange]
   /// to the given range [valueRange.min] - [valueRange.max].

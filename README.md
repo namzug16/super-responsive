@@ -118,6 +118,7 @@ we specified).
 @override
 Widget build(BuildContext context) {
   return Container(
+    // you can also use context.responsiveInverseValue(100, 500)
     width: context.responsiveValue(100, 500),
     height: 300,
     color: Colors.red,
@@ -253,13 +254,17 @@ and make them easier to read, understand and maintain.
 
 The concept is very simple, specify how many layouts you want, the children
 that will be available for those layouts , your breakpoints(which most of the time are your SuperResponsive breakpoints)
-and then you layouts.
+and then your layouts.
 
 ```dart
 ...
 @override
 Widget build(BuildContext context) {
   return ResponsiveLayout(
+    // when set to true it will use the available space of the parent
+    // widget in order to determine it breakpoint and later 
+    // its layout
+    useBoxConstraints: true,
     layoutCount: 3,
     children: [
       Widget0(),
@@ -272,6 +277,7 @@ Widget build(BuildContext context) {
     breakpoints: (breakpoints) => breakpoints,
     layouts: (child) => [
       // ! Some complex layout with multiple Rows and Columns
+      // ! Or any other widget that you want
       Column(
         children: [
           // ! the function child() will return the child 

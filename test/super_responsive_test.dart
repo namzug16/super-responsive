@@ -29,12 +29,10 @@ void main() {
             second: 500,
           ),
           child: Scaffold(
-            body: Builder(
-              builder: (context) {
-                _context = context;
-                return Container();
-              }
-            ),
+            body: Builder(builder: (context) {
+              _context = context;
+              return Container();
+            }),
           ),
         ),
       );
@@ -49,7 +47,6 @@ void main() {
     }
 
     testWidgets("access break points", (WidgetTester tester) async {
-
       final ContextTest ct = await _getWidget(tester);
       final SuperResponsive superResponsive = ct.widget as SuperResponsive;
 
@@ -89,7 +86,6 @@ void main() {
 
       expect(width, 400);
       expect(superResponsive.breakpoints.currentBreakPoint(width), 500);
-
     });
   });
 }
