@@ -22,6 +22,7 @@ class ResponsiveLayout extends StatelessWidget {
     required this.children,
     required this.breakpoints,
     required this.layouts,
+    this.useBoxConstraints = false,
   }) : super(key: key);
 
   /// It represent the amount of layouts this widget will
@@ -55,6 +56,11 @@ class ResponsiveLayout extends StatelessWidget {
   /// you return any widget that you want here
   final LayoutsBuilder layouts;
 
+  /// When set to false it will use the screen width to
+  /// determine its breakpoints, when set to true it will use the
+  /// box constraints to determine its breakpoints.
+  final bool useBoxConstraints;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -62,7 +68,9 @@ class ResponsiveLayout extends StatelessWidget {
         final _breakpoints = breakpoints(context.breakpoints);
         assert(_breakpoints.length == layoutCount,
             "Amount of break points does not correspond to layoutCount");
-        final index = indexBreakPoint(constraints.maxWidth, _breakpoints);
+        final index = indexBreakPoint(
+            useBoxConstraints ? constraints.maxWidth : context.mediaQueryWidth,
+            _breakpoints);
 
         final _layouts = layouts((i) => children[i]);
 
