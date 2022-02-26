@@ -18,6 +18,7 @@ A responsive library for Flutter that
 ## Index
 
 1. [Getting Started](#getting-started)
+    - [Extensions](#extensions)
     - [Responsive Value](#responsive-value)
     - [Responsive Widget](#responsive-widget)
     - [Responsive Text](#responsive-text)
@@ -47,6 +48,15 @@ class MyApp extends StatelessWidget {
         second: 900,
         third: 600,
       ),
+      // you can create custom values that are going
+      // to be available to all your widgets.
+      // 
+      // See Extensions and Responsive Value to find out more 
+      customValues: (context) => [
+         "title": context.responsiveValue(25, 50), 
+         "subtitle": context.responsiveValue(13, 20),
+         "any_other_value": 100,
+      ],
       child: MaterialApp(
         title: 'Super Responsive App',
         initialRoute: '/',

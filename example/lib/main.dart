@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
         third: 900,
         fourth: 800,
       ),
+      customValues: (context) => {
+        "header_font": context.mediaQueryWidth.per(5).clamp(30, 60),
+      },
       child: MaterialApp(
         title: 'Super Responsive Demo',
         theme: ThemeData(
@@ -53,16 +56,21 @@ class MyHomePage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Text("Custom Value",
+                        style: TextStyle(
+                            fontSize: context.customValues["header_font"])),
                     Text(
-                        "MediaQuery.of(context).size.width: ${context.mediaQueryWidth}"),
-                    Text(
-                        "MediaQuery.of(context).size.height: ${context.mediaQueryHeight}"),
+                        "Custom Value: ${context.customValues["header_font"]}"),
                     Text(
                         "Responsive Value (300, 600): ${context.responsiveValue(300, 600)}"),
                     Text(
                         "Responsive Value (300, 600) max clamp: ${context.responsiveValue(300, 600).max(500)}"),
                     Text(
                         "Responsive Value (300, 600) min clamp: ${context.responsiveValue(300, 600).min(400)}"),
+                    Text(
+                        "MediaQuery.of(context).size.height: ${context.mediaQueryHeight}"),
+                    Text(
+                        "MediaQuery.of(context).size.width: ${context.mediaQueryWidth}"),
                     Text("Breakpoints: ${context.breakpoints.list}"),
                     Text("Current breakpoint: ${context.currentBreakpoint}"),
                     Text(
