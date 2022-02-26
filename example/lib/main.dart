@@ -58,15 +58,15 @@ class MyHomePage extends StatelessWidget {
                     Text("Custom Value", style: TextStyle(fontSize: context.customValues["header_font"])),
                     Text("Custom Value: ${context.customValues["header_font"]}"),
                     Text(
-                        "MediaQuery.of(context).size.width: ${context.mediaQueryWidth}"),
-                    Text(
-                        "MediaQuery.of(context).size.height: ${context.mediaQueryHeight}"),
-                    Text(
                         "Responsive Value (300, 600): ${context.responsiveValue(300, 600)}"),
                     Text(
                         "Responsive Value (300, 600) max clamp: ${context.responsiveValue(300, 600).max(500)}"),
                     Text(
                         "Responsive Value (300, 600) min clamp: ${context.responsiveValue(300, 600).min(400)}"),
+                    Text(
+                        "MediaQuery.of(context).size.height: ${context.mediaQueryHeight}"),
+                    Text(
+                        "MediaQuery.of(context).size.width: ${context.mediaQueryWidth}"),
                     Text("Breakpoints: ${context.breakpoints.list}"),
                     Text("Current breakpoint: ${context.currentBreakpoint}"),
                     Text(

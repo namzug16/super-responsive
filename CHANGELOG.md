@@ -1,3 +1,6 @@
+## 0.1.5
+* Add custom values feature to SuperResponsive widget
+
 ## 0.1.4
 * Add ```when``` extension on Num
 * Add ```responsiveInverseVAlue``` extension on BuildContext 
