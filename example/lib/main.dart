@@ -17,6 +17,9 @@ class MyApp extends StatelessWidget {
         third: 900,
         fourth: 800,
       ),
+      customValues: (context) => {
+        "header_font": context.mediaQueryWidth.per(5).clamp(30, 60),
+      },
       child: MaterialApp(
         title: 'Super Responsive Demo',
         theme: ThemeData(
@@ -40,7 +43,6 @@ class MyHomePage extends StatelessWidget {
             color: Colors.amberAccent,
             borderRadius: BorderRadius.circular(15),
           ),
-
           /// responsive value example
           /// the width will be the result from the mapped range
           /// [breakpoints.last - breakpoints.first] -> screen width
@@ -53,6 +55,8 @@ class MyHomePage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Text("Custom Value", style: TextStyle(fontSize: context.customValues["header_font"])),
+                    Text("Custom Value: ${context.customValues["header_font"]}"),
                     Text(
                         "MediaQuery.of(context).size.width: ${context.mediaQueryWidth}"),
                     Text(

@@ -55,6 +55,13 @@ extension ResponsiveContext on BuildContext {
   /// in the widget tree
   Breakpoints get breakpoints => SuperResponsive.of(this).breakpoints;
 
+  /// Returns custom values from the closes [SuperResponsive] widget
+  /// in the widget tree
+  Map<String, double> get customValues =>
+      SuperResponsive.of(this).customValues == null
+          ? <String, double>{}
+          : SuperResponsive.of(this).customValues!(this);
+
   /// Returns [Breakpoints.when] with a maxWidth equal to the current
   /// screen width
   double whenBreakpoints({
