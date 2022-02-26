@@ -5,15 +5,15 @@ import 'package:super_responsive/src/range.dart';
 import 'package:super_responsive/src/super_responsive.dart';
 
 /// Helper typedef for [ResponsiveNum] extensions.
-typedef Condition = bool Function(num value);
+typedef Condition = bool Function(double value);
 
 /// Extensions for Num containing [min], [max], and [per]
-extension ResponsiveNum on num {
+extension ResponsiveNum on double {
   /// Clamps your value with only a maximum value
-  num max(num max) => this.clamp(double.negativeInfinity, max);
+  double max(double max) => this.clamp(double.negativeInfinity, max);
 
   /// Clamps your value with only a minimum value
-  num min(num min) => this.clamp(min, double.maxFinite);
+  double min(double min) => this.clamp(min, double.maxFinite);
 
   /// Return the percentage of the given value
   ///
@@ -32,7 +32,7 @@ extension ResponsiveNum on num {
   /// // then the final value will be 700
   /// context.mediaQueryHeight.when( (value) => value < 600, 700 );
   /// ```
-  num when(Condition condition, num value) => condition(this) ? value : this;
+  double when(Condition condition, double value) => condition(this) ? value : this;
 }
 
 /// Extensions for BoxConstraints containing [perWidth] and [perHeight]
