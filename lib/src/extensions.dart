@@ -32,7 +32,8 @@ extension ResponsiveNum on double {
   /// // then the final value will be 700
   /// context.mediaQueryHeight.when( (value) => value < 600, 700 );
   /// ```
-  double when(Condition condition, double value) => condition(this) ? value : this;
+  double when(Condition condition, double value) =>
+      condition(this) ? value : this;
 }
 
 /// Extensions for BoxConstraints containing [perWidth] and [perHeight]

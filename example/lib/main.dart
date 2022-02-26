@@ -43,6 +43,7 @@ class MyHomePage extends StatelessWidget {
             color: Colors.amberAccent,
             borderRadius: BorderRadius.circular(15),
           ),
+
           /// responsive value example
           /// the width will be the result from the mapped range
           /// [breakpoints.last - breakpoints.first] -> screen width
@@ -55,8 +56,11 @@ class MyHomePage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text("Custom Value", style: TextStyle(fontSize: context.customValues["header_font"])),
-                    Text("Custom Value: ${context.customValues["header_font"]}"),
+                    Text("Custom Value",
+                        style: TextStyle(
+                            fontSize: context.customValues["header_font"])),
+                    Text(
+                        "Custom Value: ${context.customValues["header_font"]}"),
                     Text(
                         "Responsive Value (300, 600): ${context.responsiveValue(300, 600)}"),
                     Text(
