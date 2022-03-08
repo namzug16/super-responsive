@@ -65,15 +65,15 @@ extension ResponsiveContext on BuildContext {
 
   /// Returns [Breakpoints.when] with a maxWidth equal to the current
   /// screen width
-  double whenBreakpoints({
-    required BreakPointValue first,
-    required BreakPointValue second,
-    BreakPointValue? third,
-    BreakPointValue? fourth,
-    BreakPointValue? fifth,
-    BreakPointValue? sixth,
+  T whenBreakpoints<T extends Object?>({
+    required T Function(double breakpoint) first,
+    required T Function(double breakpoint) second,
+    T Function(double breakpoint)? third,
+    T Function(double breakpoint)? fourth,
+    T Function(double breakpoint)? fifth,
+    T Function(double breakpoint)? sixth,
   }) =>
-      breakpoints.when(
+      breakpoints.when<T>(
         maxWidth: mediaQueryWidth,
         first: first,
         second: second,

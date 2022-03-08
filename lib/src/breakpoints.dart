@@ -1,12 +1,5 @@
 import 'package:super_responsive/src/utils.dart';
 
-/// A callback used by the [Breakpoints]' method [Breakpoints.when]
-///
-/// it exposes the current break point so that it can be used
-/// if wanted.
-///
-typedef BreakPointValue = double Function(double breakPoint);
-
 /// An utility to keep all your break points in a class,
 /// it is mainly used by the [SuperResponsive] widget, that makes
 /// it available on the entire widget three
@@ -121,14 +114,14 @@ class Breakpoints {
   /// ...
   /// ```
   ///
-  double when({
+  T when<T extends Object?>({
     required double maxWidth,
-    required BreakPointValue first,
-    required BreakPointValue second,
-    BreakPointValue? third,
-    BreakPointValue? fourth,
-    BreakPointValue? fifth,
-    BreakPointValue? sixth,
+    required T Function(double breakpoint) first,
+    required T Function(double breakpoint) second,
+    T Function(double breakpoint)? third,
+    T Function(double breakpoint)? fourth,
+    T Function(double breakpoint)? fifth,
+    T Function(double breakpoint)? sixth,
   }) {
     final currentBP = currentBreakPoint(maxWidth);
     if (currentBP == this.first) return first(this.first);
@@ -142,7 +135,7 @@ class Breakpoints {
     if (sixth == null) return fifth(this.fifth ?? last);
     if (currentBP == this.sixth) return sixth(this.sixth ?? last);
 
-    return 0;
+    return first(this.first);
   }
 
   @override
