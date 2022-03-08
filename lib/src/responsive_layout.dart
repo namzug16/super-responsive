@@ -82,37 +82,3 @@ class ResponsiveLayout extends StatelessWidget {
     );
   }
 }
-
-/// A util extension to wrap a [Widget] in an [Expanded]  widget or a
-/// [Flexible], for more readability
-/// when making complex layouts with [ResponsiveLayout].
-extension ResponsiveWidgetExtension on Widget {
-  /// Wraps this [Widget] in an [Expanded] widget, with an specific [flex],
-  /// for a better readability when making complex layouts specially
-  /// when making complex layouts with nested [Row]s
-  /// and [Column]s in a [ResponsiveLayout] widget.
-  ///
-  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
-  /// to avoid unexpected behavior and errors.
-  ///
-  Widget expanded([int flex = 1]) => Expanded(flex: flex, child: this);
-
-  /// Wraps this [Widget] in an [Flexible] widget, with an specific [flex]
-  /// and [fit],
-  /// for a better readability when making complex layouts specially
-  /// when making complex layouts with nested [Row]s
-  /// and [Column]s in a [ResponsiveLayout] widget.
-  ///
-  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
-  /// to avoid unexpected behavior and errors.
-  ///
-  Widget flexible({
-    int flex = 1,
-    FlexFit fit = FlexFit.loose,
-  }) =>
-      Flexible(
-        flex: flex,
-        fit: fit,
-        child: this,
-      );
-}
