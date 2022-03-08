@@ -13,6 +13,10 @@ typedef BreakpointsBuilder = List<double> Function(Breakpoints breakpoints);
 /// from [ResponsiveLayout.children].
 typedef LayoutsBuilder = List<Widget> Function(Widget Function(int i) child);
 
+/// A callback used in [ResponsiveLayout], can be used in case you want to wrap
+/// all your layouts in a common widget
+typedef ResponsiveLayoutBuilder = Widget Function(BuildContext context, Widget child);
+
 /// A util class that builds a certain layout based on the current break point.
 class ResponsiveLayout extends StatelessWidget {
   /// Creates a new instance of [ResponsiveLayout]
@@ -22,6 +26,7 @@ class ResponsiveLayout extends StatelessWidget {
     required this.children,
     required this.breakpoints,
     required this.layouts,
+    this.builder,
     this.useBoxConstraints = false,
   }) : super(key: key);
 
@@ -56,6 +61,9 @@ class ResponsiveLayout extends StatelessWidget {
   /// you return any widget that you want here
   final LayoutsBuilder layouts;
 
+  /// A callback that can be used to wrap all your layouts in a common widget
+  final ResponsiveLayoutBuilder? builder;
+
   /// When set to false it will use the screen width to
   /// determine its breakpoints, when set to true it will use the
   /// box constraints to determine its breakpoints.
@@ -77,7 +85,13 @@ class ResponsiveLayout extends StatelessWidget {
         assert(_layouts.length == layoutCount,
             "Amount of layouts does not correspond to layoutCount");
 
-        return layouts((i) => children[i])[index];
+        final widget = layouts((i) => children[i])[index];
+
+        if(builder != null) {
+          return builder!(context, widget);
+        }
+
+        return widget;
       },
     );
   }
