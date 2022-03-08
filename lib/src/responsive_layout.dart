@@ -15,7 +15,8 @@ typedef LayoutsBuilder = List<Widget> Function(Widget Function(int i) child);
 
 /// A callback used in [ResponsiveLayout], can be used in case you want to wrap
 /// all your layouts in a common widget
-typedef ResponsiveLayoutBuilder = Widget Function(BuildContext context, Widget child);
+typedef ResponsiveLayoutBuilder = Widget Function(
+    BuildContext context, Widget child);
 
 /// A util class that builds a certain layout based on the current break point.
 class ResponsiveLayout extends StatelessWidget {
@@ -87,7 +88,7 @@ class ResponsiveLayout extends StatelessWidget {
 
         final widget = layouts((i) => children[i])[index];
 
-        if(builder != null) {
+        if (builder != null) {
           return builder!(context, widget);
         }
 
