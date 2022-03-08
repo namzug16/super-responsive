@@ -1,3 +1,7 @@
+## 0.1.6
+* ```when``` method of ```Breakpoints``` now return a generic type and not a double
+* ```builder``` added to ```ResponsiveLayout```
+
 ## 0.1.5
 * Add custom values feature to SuperResponsive widget
 

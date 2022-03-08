@@ -65,15 +65,15 @@ extension ResponsiveContext on BuildContext {
 
   /// Returns [Breakpoints.when] with a maxWidth equal to the current
   /// screen width
-  double whenBreakpoints({
-    required BreakPointValue first,
-    required BreakPointValue second,
-    BreakPointValue? third,
-    BreakPointValue? fourth,
-    BreakPointValue? fifth,
-    BreakPointValue? sixth,
+  T whenBreakpoints<T extends Object?>({
+    required T Function(double breakpoint) first,
+    required T Function(double breakpoint) second,
+    T Function(double breakpoint)? third,
+    T Function(double breakpoint)? fourth,
+    T Function(double breakpoint)? fifth,
+    T Function(double breakpoint)? sixth,
   }) =>
-      breakpoints.when(
+      breakpoints.when<T>(
         maxWidth: mediaQueryWidth,
         first: first,
         second: second,
@@ -128,4 +128,38 @@ extension ResponsiveContext on BuildContext {
 
   /// Returns MediaQuery.of(context).size.height.
   double get mediaQueryHeight => MediaQuery.of(this).size.height;
+}
+
+/// A util extension to wrap a [Widget] in an [Expanded]  widget or a
+/// [Flexible], for more readability
+/// when making complex layouts with [ResponsiveLayout].
+extension ResponsiveWidgetExtension on Widget {
+  /// Wraps this [Widget] in an [Expanded] widget, with an specific [flex],
+  /// for a better readability when making complex layouts specially
+  /// when making complex layouts with nested [Row]s
+  /// and [Column]s in a [ResponsiveLayout] widget.
+  ///
+  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
+  /// to avoid unexpected behavior and errors.
+  ///
+  Widget expanded([int flex = 1]) => Expanded(flex: flex, child: this);
+
+  /// Wraps this [Widget] in an [Flexible] widget, with an specific [flex]
+  /// and [fit],
+  /// for a better readability when making complex layouts specially
+  /// when making complex layouts with nested [Row]s
+  /// and [Column]s in a [ResponsiveLayout] widget.
+  ///
+  /// DO NOT use with an [Expanded] widget or a [Flexible] widget, in order
+  /// to avoid unexpected behavior and errors.
+  ///
+  Widget flexible({
+    int flex = 1,
+    FlexFit fit = FlexFit.loose,
+  }) =>
+      Flexible(
+        flex: flex,
+        fit: fit,
+        child: this,
+      );
 }
